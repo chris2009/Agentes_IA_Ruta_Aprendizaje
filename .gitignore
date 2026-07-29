@@ -56,6 +56,9 @@ clase5-*.zip
 clase6-*.zip
 clase7-*.zip
 
+# --- Proyecto Final: se sube aparte cuando esté listo ---
+Proyecto_Final/
+
 # --- Configuración de editores / SO ---
 .obsidian/
 .vscode/
