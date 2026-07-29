@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clemente — Próximos agentes candidatos</title>
+  <style>
+    :root {
+      --ink: #111;
+      --border: #202020;
+      --communication: #dfe9df;
+      --context: #b7d9f0;
+      --environment: #b9e4e7;
+      --autonomy: #fff0c9;
+      --criticality: #f7cfd3;
+      --paper: #ffffff;
+      --page-bg: #f3f5f7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.35;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(20, 28, 35, 0.96);
+      color: white;
+      padding: 14px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+
+    .topbar .inner {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .topbar strong {
+      font-size: 18px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.35);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    .nav a:hover {
+      background: rgba(255,255,255,.14);
+    }
+
+    main {
+      width: min(1500px, calc(100% - 24px));
+      margin: 22px auto 50px;
+    }
+
+    .intro {
+      background: var(--paper);
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      padding: 20px 26px;
+      margin: 0 auto 30px;
+      max-width: 1100px;
+    }
+
+    .intro h1 {
+      font-size: clamp(20px, 2.1vw, 28px);
+      margin: 0 0 10px;
+    }
+
+    .intro p {
+      margin: 6px 0;
+      font-size: 15px;
+    }
+
+    .agent-sheet {
+      background: var(--paper);
+      border: 2px solid var(--border);
+      margin: 0 auto 34px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+
+    .case-title {
+      padding: 22px 28px;
+      border-bottom: 2px solid var(--border);
+      background: #fff;
+      text-align: center;
+    }
+
+    .case-title h1 {
+      margin: 7px 0 0;
+      font-size: clamp(22px, 2.3vw, 34px);
+      line-height: 1.2;
+    }
+
+    .case-title .subtitle {
+      margin: 8px auto 0;
+      max-width: 900px;
+      font-size: 14.5px;
+      font-style: italic;
+      color: #333;
+    }
+
+    .case-number {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #111;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 999px;
+    }
+
+    .section {
+      border-bottom: 2px solid var(--border);
+      padding: 18px 18px 20px;
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+    }
+
+    .section > h2 {
+      margin: 0 0 4px;
+      text-align: center;
+      font-size: clamp(22px, 2vw, 31px);
+      line-height: 1.1;
+    }
+
+    .section > h3 {
+      margin: 0 0 10px;
+      text-align: center;
+      font-size: clamp(17px, 1.45vw, 23px);
+    }
+
+    .section > h4 {
+      margin: 12px 0 2px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .section > p {
+      margin: 5px auto;
+      text-align: center;
+      max-width: 1200px;
+      font-size: 16px;
+    }
+
+    .communication {
+      background: var(--communication);
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .context {
+      background: var(--context);
+    }
+
+    .environment {
+      background: var(--environment);
+    }
+
+    .autonomy {
+      background: var(--autonomy);
+    }
+
+    .criticality {
+      background: var(--criticality);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 14px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .environment-grid {
+      grid-template-columns: 1fr 1.08fr 1.1fr;
+    }
+
+    .memory-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .box {
+      background: rgba(255,255,255,.94);
+      border: 2px solid var(--border);
+      border-radius: 42px;
+      padding: 14px 20px 16px;
+      min-width: 0;
+    }
+
+    .box h3 {
+      text-align: center;
+      margin: 0 0 8px;
+      font-size: clamp(20px, 1.7vw, 28px);
+      line-height: 1.05;
+    }
+
+    .box p {
+      margin: 8px 0;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .box ul {
+      margin: 8px 0 0;
+      padding-left: 22px;
+    }
+
+    .box li {
+      margin: 6px 0;
+      font-size: 15px;
+    }
+
+    .memory {
+      border-radius: 26px;
+    }
+
+    .critical-grid .box {
+      border-radius: 70px;
+      padding-left: 28px;
+      padding-right: 28px;
+    }
+
+    @media (max-width: 1000px) {
+      .grid.two,
+      .environment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .critical-grid .box,
+      .box {
+        border-radius: 28px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        width: calc(100% - 10px);
+        margin-top: 10px;
+      }
+
+      .topbar {
+        position: static;
+      }
+
+      .section {
+        padding: 14px 10px 16px;
+      }
+
+      .box {
+        padding: 14px 16px;
+      }
+
+      .box li,
+      .box p,
+      .section > p {
+        font-size: 14px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .topbar {
+        display: none;
+      }
+
+      main {
+        width: 100%;
+        margin: 0;
+      }
+
+      .agent-sheet {
+        box-shadow: none;
+        margin: 0;
+        page-break-after: always;
+        break-after: page;
+      }
+
+      .agent-sheet:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      .box {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="inner">
+      <strong>Clemente — Próximos agentes candidatos</strong>
+      <nav class="nav" aria-label="Navegación entre agentes candidatos">
+        <a href="#reservas">Reservas y Capacidad</a>
+        <a href="#pedidos">Pedidos y Delivery</a>
+        <a href="#incidencias">Incidencias</a>
+        <a href="#orquestador">Orquestador</a>
+        <a href="#vision">Visión Computacional</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="intro">
+      <h1>Lo que ya tenemos:</h1>
+      <p>Clemente ya resuelve, como <strong>un solo agente conversacional</strong>, la atención, las reservas, el conocimiento operativo y el feedback (ver <em>clemente-restaurantes.html</em>). El caso de estudio propone evolucionar hacia un sistema distribuido de agentes especializados coordinados por un orquestador.</p>
+      <p>Cada card de esta página describe <strong>un único agente candidato</strong> a esa siguiente fase, con alcance acotado y aterrizable. No representan el sistema completo: son opciones independientes para que el equipo priorice cuál construir primero.</p>
+    </div>
+
+    <section class="agent-sheet" id="reservas">
+      <div class="case-title">
+        <span class="case-number">Candidato 1</span>
+        <h1>Agente de Reservas y Capacidad</h1>
+        <p class="subtitle">Hoy ya funciona dentro del agente único (fila "Reservas" marcada como "Resuelto" en el caso de estudio), pero la "Implementación gradual" propone separarla primero, antes que pedidos/fulfillment.</p>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>Conversacional</h3>
+        <p>Continúa la conversación ya iniciada con Clemente (WhatsApp, Messenger, Instagram, Webchat) para consultar disponibilidad, confirmar la reserva y darle seguimiento hasta el día de la visita.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Gestión de disponibilidad, reservas, mesas, zonas y lista de espera del restaurante.</p>
+            <p><strong>Alcance:</strong> Consultar disponibilidad, registrar y modificar reservas, trabajar con zonas, mesas y combinaciones ya declaradas, gestionar lista de espera cuando no hay disponibilidad, y contrastar la reserva registrada con la ocupación real cuando reciba señales del Agente de Visión Computacional.</p>
+            <p><strong>Restricción clave:</strong> No define reglas de capacidad ni combinaciones de mesas por su cuenta (usa lo declarado por la operación), no gestiona pagos ni pedidos, y no decide compensaciones ante un problema de reserva — deriva al Agente de Incidencias.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Consultar disponibilidad en tiempo real según fecha, hora y tamaño de grupo.</li><li>Registrar, modificar o cancelar una reserva confirmada por el cliente.</li><li>Gestionar lista de espera cuando no hay disponibilidad inmediata.</li><li>Sugerir combinaciones de mesas para grupos grandes, dentro de lo ya declarado por la operación.</li><li>Contrastar la reserva registrada con la ocupación real cuando reciba eventos del Agente de Visión Computacional.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Disponibilidad y calendario de reservas vigente.</li><li>Mapa de zonas, mesas y combinaciones declaradas por la operación.</li><li>Políticas de reserva: anticipación mínima, tolerancia y cancelación.</li><li>Eventos de ocupación reportados por el Agente de Visión Computacional, cuando esté disponible.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Consulta y actualización del calendario de disponibilidad.</li><li>Registro y edición de reservas.</li><li>Gestión de lista de espera.</li><li>Notificaciones de confirmación y recordatorio al cliente.</li><li>Lectura de eventos de ocupación (mesa liberada, ocupación prolongada) para contrastar con lo reservado.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Reserva en curso: fecha, hora, tamaño de grupo, zona o mesa preferida.</li><li>Estado de la conversación de reserva activa.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Historial de reservas del cliente.</li><li>Preferencias de zona o mesa y frecuencia de visita.</li><li>Patrones de no-show y cancelaciones.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Semi-autónomo</h3>
+        <p>Confirma, modifica o cancela una reserva únicamente cuando el cliente lo confirma explícitamente, y solo después de verificar disponibilidad real.</p>
+        <h4>Limitaciones</h4>
+        <p>No garantiza una mesa fuera de lo declarado por la operación, no reasigna combinaciones de mesas sin aprobación humana ante un conflicto, y no cancela una reserva sin confirmación del cliente o del staff.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Medio-alto (afecta directamente la capacidad operativa del restaurante)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Doble reserva sobre la misma mesa o zona.</li><li>Reserva confirmada sin verificar disponibilidad real.</li><li>Lista de espera mal gestionada, con pérdida de clientes.</li><li>Diferencia no detectada entre la reserva registrada y la ocupación real.</li><li>Combinación de mesas asignada sin considerar el layout real.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Verificación de disponibilidad en tiempo real antes de confirmar cualquier reserva.</li><li>Confirmación explícita del cliente antes de registrar cambios o cancelaciones.</li><li>Bloqueo de auto-aprobación en combinaciones de mesas para grupos grandes.</li><li>Alerta automática al staff ante diferencia entre reserva y ocupación real, cuando exista señal de Visión Computacional.</li><li>Trazabilidad completa entre reserva, mesa asignada y estado real.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="agent-sheet" id="pedidos">
+      <div class="case-title">
+        <span class="case-number">Candidato 2</span>
+        <h1>Agente de Pedidos y Delivery</h1>
+        <p class="subtitle">Cubre el gap marcado como "Pendiente" en la tabla del caso de estudio: Clemente aún no tiene un flujo de pedidos orientado al negocio gastronómico.</p>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>Conversacional</h3>
+        <p>Continúa la conversación ya iniciada con Clemente (WhatsApp, Messenger, Instagram, Webchat) para tomar el pedido y dar seguimiento a su estado hasta la entrega.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Punto de venta conversacional para delivery y recojo en tienda.</p>
+            <p><strong>Alcance:</strong> Tomar el pedido, diferenciar delivery de recojo, validar dirección y zona de reparto, calcular costo y tiempo estimado, iniciar el cobro y comunicar el estado hasta la entrega.</p>
+            <p><strong>Restricción clave:</strong> No fija precios ni promociones propias (usa el catálogo y reglas vigentes), no cocina ni despacha, y no decide compensaciones ante una incidencia — deriva al Agente de Incidencias.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Tomar el pedido completo desde la conversación (productos, extras, observaciones).</li><li>Calcular costo y tiempo estimado según la zona de reparto.</li><li>Iniciar el cobro mediante la pasarela de pago configurada.</li><li>Comunicar el estado del pedido: confirmado, en preparación, en camino, entregado.</li><li>Alertar al equipo operativo ante demoras o fallas de pago.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Catálogo de productos y extras vigente.</li><li>Zonas de reparto y tarifas asociadas.</li><li>Horarios de cocina y despacho.</li><li>Reglas de promociones activas.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Consulta del catálogo de productos y precios.</li><li>Validador de dirección y zona de reparto.</li><li>Pasarela de pago.</li><li>Creación de la orden en el sistema de cocina/despacho.</li><li>Notificaciones de estado al cliente.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Pedido en curso: productos, extras, dirección, método de entrega.</li><li>Estado del pago dentro de la sesión activa.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Historial de pedidos del cliente.</li><li>Productos frecuentes.</li><li>Direcciones guardadas.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Semi-autónomo</h3>
+        <p>Arma el pedido y ejecuta el cobro únicamente cuando el cliente confirma explícitamente cada paso: productos, dirección y monto final.</p>
+        <h4>Limitaciones</h4>
+        <p>No autoriza reembolsos, no modifica precios ni promociones, y no confirma un pedido sin verificar disponibilidad de zona de reparto.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Alto (maneja pagos)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Cobro por un monto incorrecto.</li><li>Dirección o zona mal validada, con entrega fallida.</li><li>Pedidos duplicados.</li><li>Pedido confirmado sin verificar disponibilidad real.</li><li>Promesa de tiempo de entrega no realista.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Confirmación explícita del cliente antes de ejecutar el cobro.</li><li>Doble verificación de dirección y zona antes de confirmar el pedido.</li><li>Límite de reintentos ante fallas de pago.</li><li>Alerta automática al staff si el pedido no cambia de estado dentro del tiempo esperado.</li><li>Bloqueo de auto-aprobación en pedidos de monto alto.</li><li>Trazabilidad completa entre pedido, pago y despacho.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="agent-sheet" id="incidencias">
+      <div class="case-title">
+        <span class="case-number">Candidato 3</span>
+        <h1>Agente de Incidencias y Experiencia</h1>
+        <p class="subtitle">Formaliza el flujo que el caso de estudio propone: incidencia → responsable → plazo → solución → confirmación.</p>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>Conversacional y no conversacional</h3>
+        <p>Recibe la queja o el reporte directamente en la conversación con el cliente, y coordina el seguimiento interno con el staff de forma no conversacional.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Gestión de quejas, demoras y problemas de reserva o pedido reportados por el cliente.</p>
+            <p><strong>Alcance:</strong> Registrar la incidencia, asignar un responsable, fijar un plazo de resolución, dar seguimiento hasta el cierre y confirmar la solución con el cliente.</p>
+            <p><strong>Restricción clave:</strong> No decide compensaciones económicas por sí solo (solo las propone) y no cierra una incidencia sin confirmación del cliente o del responsable asignado.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Capturar la incidencia con el detalle necesario: tipo, contexto y cliente afectado.</li><li>Asignar un responsable según el tipo de problema.</li><li>Fijar y monitorear un plazo de resolución.</li><li>Escalar automáticamente si el plazo se vence.</li><li>Confirmar el cierre directamente con el cliente.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Catálogo de tipos de incidencia y responsables por tipo.</li><li>Políticas de compensación vigentes.</li><li>SLA (Service Level Agreement, acuerdo de nivel de servicio) de tiempos de respuesta por severidad.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Creación y actualización de tickets de incidencia.</li><li>Notificación al responsable asignado.</li><li>Recordatorios automáticos ante plazo vencido.</li><li>Mensaje de confirmación al cliente.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Incidencia activa: descripción, cliente, estado, responsable y plazo.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Historial de incidencias por cliente y por tipo.</li><li>Tiempos reales de resolución.</li><li>Desempeño de responsables por tipo de incidencia.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Semi-autónomo</h3>
+        <p>Registra, asigna responsable y da seguimiento de forma automática.</p>
+        <h4>Limitaciones</h4>
+        <p>Escala y solicita aprobación humana para cualquier compensación, y no cierra una incidencia sin confirmación explícita del cliente.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Alto (afecta la retención del cliente)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Incidencia mal clasificada o sin responsable asignado.</li><li>Plazos no monitoreados: la incidencia se "pierde".</li><li>Cierre sin que el cliente esté conforme.</li><li>Compensación ofrecida sin autorización.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Toda incidencia debe tener responsable y plazo desde su creación.</li><li>Alerta automática ante vencimiento de plazo.</li><li>Ninguna compensación se comunica sin aprobación humana.</li><li>El cierre requiere confirmación explícita del cliente.</li><li>Trazabilidad completa desde el reporte hasta el cierre.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="agent-sheet" id="orquestador">
+      <div class="case-title">
+        <span class="case-number">Candidato 4</span>
+        <h1>Agente Orquestador</h1>
+        <p class="subtitle">La base que ya opera hoy como enrutador simple; formalizarla es el primer paso de la "implementación gradual" que describe el caso de estudio.</p>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>No conversacional</h3>
+        <p>Opera detrás de la conversación: recibe cada mensaje entrante y decide qué agente especializado debe responder, sin que el cliente perciba la derivación.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Enrutamiento y coordinación entre los agentes especializados de Clemente.</p>
+            <p><strong>Alcance:</strong> Detectar la intención del mensaje entrante, derivarlo al agente correcto y mantener sincronizado el estado compartido del cliente entre agentes.</p>
+            <p><strong>Restricción clave:</strong> No resuelve directamente ninguna solicitud del cliente ni ejecuta acciones de negocio (reservar, cobrar, cerrar incidencias) — solo decide quién debe actuar.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Clasificar la intención de cada mensaje entrante.</li><li>Derivar al agente especializado correspondiente.</li><li>Mantener sincronizado el estado compartido entre agentes.</li><li>Evitar duplicidad de acciones cuando varios agentes podrían aplicar.</li><li>Registrar cada derivación para trazabilidad.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Catálogo de agentes disponibles y sus capacidades.</li><li>Reglas de clasificación de intención.</li><li>Criterios de desempate ante intención ambigua.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Clasificador de intención.</li><li>Invocación de agentes especializados.</li><li>Acceso de lectura/escritura al estado compartido (cliente, reservas, mesas, pedidos, incidencias).</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Conversación activa y agente actualmente responsable del turno.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Historial de derivaciones por cliente.</li><li>Patrones de intención mal clasificada.</li><li>Frecuencia de uso por agente.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Autónomo</h3>
+        <p>Enruta cada conversación sin intervención humana cotidiana.</p>
+        <h4>Limitaciones</h4>
+        <p>Su autonomía termina en la decisión de enrutamiento; no ejecuta ninguna acción de negocio por sí mismo.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Medio (un error de enrutamiento degrada toda la experiencia)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Clasificación incorrecta de intención: deriva al agente equivocado.</li><li>Pérdida de contexto al pasar de un agente a otro.</li><li>Condiciones de carrera si dos agentes actúan sobre el mismo estado a la vez.</li><li>Ciclos de derivación sin resolución.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Umbral de confianza mínimo para derivar automáticamente; por debajo, deriva a un agente generalista o a un humano.</li><li>Un único agente con permiso de escritura sobre cada entidad del estado compartido en un momento dado.</li><li>Límite de derivaciones por conversación antes de escalar a un humano.</li><li>Registro y auditoría de cada decisión de enrutamiento.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="agent-sheet" id="vision">
+      <div class="case-title">
+        <span class="case-number">Candidato 5</span>
+        <h1>Agente de Visión Computacional — Piloto de Ocupación</h1>
+        <p class="subtitle">Acotado solo a la primera fase sugerida por el caso de estudio (cámaras, zonas configuradas, eventos de ocupada/libre); deja fuera las fases avanzadas.</p>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>No conversacional</h3>
+        <p>Procesa video localmente y solo emite eventos operativos hacia Clemente; no interactúa en lenguaje natural con el cliente ni con el staff en esta fase.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Observación del espacio físico del restaurante mediante cámaras, limitado al piloto de ocupación.</p>
+            <p><strong>Alcance:</strong> Detectar si una mesa configurada está ocupada o libre y por cuánto tiempo, dentro de las zonas ya definidas por la operación, y enviar esos eventos a Clemente.</p>
+            <p><strong>Restricción clave:</strong> No reconoce ni identifica personas (sin reconocimiento facial ni identificación individual), no decide combinaciones de mesas ni modifica el plano, y no reemplaza la reserva declarada por la operación — solo la contrasta.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Detectar mesa ocupada o liberada en tiempo casi real.</li><li>Medir el tiempo de permanencia por mesa.</li><li>Generar un tablero en vivo de ocupación.</li><li>Alertar cuando la ocupación real difiera de lo reservado.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Mapa de zonas y mesas configuradas por la operación (declarado, no inferido por el agente).</li><li>Umbrales de tiempo para considerar una mesa "sin atención".</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Procesamiento de video local (edge, en el propio dispositivo).</li><li>Generador de eventos: mesa ocupada, mesa liberada, ocupación prolongada.</li><li>Tablero de ocupación en vivo.</li><li>Canal de alertas hacia el staff.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Estado actual de cada mesa dentro del turno.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Histórico de tiempos de ocupación por mesa, zona y turno.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Constreñido</h3>
+        <p>Solo detecta y reporta eventos de ocupación.</p>
+        <h4>Limitaciones</h4>
+        <p>Cualquier acción sobre mesas, combinaciones o reservas requiere aprobación humana; el agente nunca actúa sobre el plano del restaurante.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Alto (procesa imágenes de personas en un espacio físico)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Falsos positivos o negativos de ocupación.</li><li>Exposición de video o metadatos sensibles.</li><li>Uso de las cámaras más allá del propósito declarado (creep hacia identificación individual).</li><li>Dependencia excesiva del piloto sin validación de la operación.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Procesamiento de video estrictamente local.</li><li>Solo se transmiten eventos, nunca video continuo.</li><li>Prohibición explícita de reconocimiento facial e identificación individual en esta fase.</li><li>Zonas y mesas siempre declaradas por la operación; la visión no las infiere ni las crea.</li><li>Auditoría periódica del uso de las cámaras frente al alcance declarado.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

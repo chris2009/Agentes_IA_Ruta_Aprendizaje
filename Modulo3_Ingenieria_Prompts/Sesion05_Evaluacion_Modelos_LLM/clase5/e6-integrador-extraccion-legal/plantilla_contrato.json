@@ -1,0 +1,37 @@
+{
+  "empleado": {
+    "nombreCompleto": "",
+    "numeroDocumento": "",
+    "domicilio": ""
+  },
+  "puesto": "Ingeniera Senior de Machine Learning",
+  "sueldosBase": [
+    { "monto": 6800, "moneda": "USD", "inicio": "2024-02-12", "fin": "2025-02-28" },
+    { "monto": 7200, "moneda": "USD", "inicio": "2025-03-01", "fin": null }
+  ],
+  "compVariable": {
+    "porcentajeBono": 20,
+    "bonoRetencion": 15000,
+    "fechaRetencion": "2025-06-30"
+  },
+  "mesesPrueba": 3,
+  "clausulaConfidencialidad": "texto completo",
+  "noCompetencia": {
+    "duracionMeses": 9,
+    "territorio": "Latinoamérica",
+    "excepciones": [
+      "investigación académica",
+      "emprendimientos con <10% solapamiento"
+    ]
+  },
+  "opciones": {
+    "cantidad": 6000,
+    "precioEjercicioUSD": 12,
+    "vesting": [
+      { "porcentaje": 25, "fecha": "2025-02-12" },
+      { "porcentaje": 75, "programacion": "mensual", "meses": 36 }
+    ]
+  },
+  "leyAplicable": "Argentina",
+  "rolProteccionDatos": "encargada del tratamiento"
+}

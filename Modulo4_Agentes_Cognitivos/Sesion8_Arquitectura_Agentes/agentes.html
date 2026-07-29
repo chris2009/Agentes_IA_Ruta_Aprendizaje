@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Definición de Agentes — Ideas 1 a 5</title>
+<style>
+  :root{
+    --green:#dbe5ce;
+    --blue:#cfe6f2;
+    --teal:#c8ece7;
+    --yellow:#fbf2c4;
+    --pink:#f9d3d3;
+    --ink:#1f2a24;
+    --line:#111111;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#eef1ec;
+    margin:0;
+    padding:32px 16px 80px;
+    color:var(--ink);
+  }
+  h1.page-title{
+    text-align:center;
+    font-size:26px;
+    letter-spacing:.5px;
+    margin:0 0 32px;
+  }
+  .card{
+    max-width:1180px;
+    margin:0 auto 56px;
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
+  }
+  .band{
+    border-top:1.5px solid var(--line);
+  }
+  .card > .band:first-child{ border-top:none; }
+  .band-title{
+    text-align:center;
+    font-weight:700;
+    font-size:15px;
+    padding:10px 12px 2px;
+  }
+  .band-subtitle{
+    text-align:center;
+    font-size:12.5px;
+    padding-bottom:10px;
+  }
+  /* Communication Layer */
+  .comm{ background:var(--green); }
+  .comm .band-title{ font-size:20px; padding-top:14px; }
+
+  /* Context Definition */
+  .context{ background:var(--blue); }
+  .context-grid{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:14px;
+    padding:0 16px 16px;
+    align-items:start;
+  }
+
+  /* Environment Definition */
+  .env{ background:var(--teal); }
+  .env-grid{
+    display:grid;
+    grid-template-columns:1.05fr 1.3fr 0.9fr;
+    gap:14px;
+    padding:0 16px 16px;
+  }
+
+  /* Autonomy */
+  .autonomy{ background:var(--yellow); text-align:center; padding:12px 24px 16px;}
+  .autonomy p{ margin:6px 0; font-size:13px; }
+  .autonomy .level{ font-weight:700; font-size:14px; margin-top:2px;}
+
+  /* Criticality */
+  .criticality{ background:var(--pink); }
+  .crit-level{ text-align:center; font-weight:700; font-size:14px; padding:0 0 10px; }
+  .crit-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    padding:0 0 16px;
+  }
+  .crit-grid > div{ padding:0 18px; }
+  .crit-grid > div + div{ border-left:1px solid rgba(0,0,0,.15); }
+
+  .pill{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:22px;
+    padding:12px 16px;
+    font-size:12.5px;
+    line-height:1.5;
+  }
+  .pill h4{
+    margin:0 0 8px;
+    font-size:13.5px;
+    text-align:center;
+    font-weight:700;
+  }
+  .pill ul{
+    margin:0;
+    padding-left:18px;
+  }
+  .pill li{ margin-bottom:6px; }
+  .pill p{ margin:0 0 6px; }
+  .pill p:last-child{ margin-bottom:0; }
+  .idea-label{
+    display:inline-block;
+    background:var(--ink);
+    color:#fff;
+    font-size:11px;
+    letter-spacing:.6px;
+    padding:4px 10px;
+    border-radius:12px;
+    margin:0 auto 8px;
+  }
+  .idea-header{
+    text-align:center;
+    padding:18px 16px 0;
+  }
+  .idea-header h2{
+    margin:4px 0 0;
+    font-size:19px;
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Definición de Agentes — Contexto, Entorno, Autonomía y Criticidad</h1>
+
+<!-- ===================== IDEA 1 ===================== -->
+<div class="card">
+  <div class="idea-header">
+    <span class="idea-label">IDEA 1</span>
+    <h2>Agente de Triaje de Soporte al Cliente</h2>
+  </div>
+
+  <div class="band comm">
+    <div class="band-title">Communication Layer</div>
+    <div class="band-subtitle">No Conversacional (procesa tickets entrantes)</div>
+  </div>
+
+  <div class="band context">
+    <div class="band-title">Context Definition</div>
+    <div class="context-grid">
+      <div class="pill">
+        <h4>Domain Definition</h4>
+        <p><b>Dominio:</b> Soporte técnico de primer nivel para una empresa de software / SaaS.</p>
+        <p><b>Alcance:</b> Tickets de nivel 1 recibidos por el sistema de tickets: consultas frecuentes, errores conocidos y solicitudes de información sobre el producto.</p>
+        <p><b>Restricción:</b> No gestiona casos de nivel 2/3 (bugs críticos, incidentes de seguridad), no procesa reembolsos ni cancelaciones de contrato, no interactúa fuera del canal de tickets configurado.</p>
+      </div>
+      <div class="pill">
+        <h4>Objectives Definition</h4>
+        <ul>
+          <li>Clasificar tickets entrantes por nivel de urgencia.</li>
+          <li>Resolver automáticamente los casos simples y recurrentes.</li>
+          <li>Escalar los casos complejos con un resumen claro al agente humano.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="band env">
+    <div class="band-title">Environment Definition</div>
+    <div class="env-grid">
+      <div class="pill">
+        <h4>Knowledge</h4>
+        <ul>
+          <li>Base de conocimiento (FAQs, manuales de producto).</li>
+          <li>Historial de tickets resueltos.</li>
+          <li>Catálogo de productos y funcionalidades.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Tools</h4>
+        <ul>
+          <li>Lectura del sistema de tickets (Zendesk / Jira).</li>
+          <li>Envío de respuesta directa al cliente.</li>
+          <li>Creación de ticket escalado con resumen para el agente humano.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Short Term Memory</h4>
+        <p>Ticket activo y la conversación actual con el cliente.</p>
+        <h4 style="margin-top:10px;">Long Term Memory</h4>
+        <p>Patrones de tickets recurrentes y preferencias de escalado del equipo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band autonomy">
+    <div class="band-title">Autonomy Dimension Definition</div>
+    <p class="level">Semi-Autónomo</p>
+    <p>Resuelve sin intervención humana los tickets de baja complejidad; escala automáticamente los que superan su umbral de confianza.</p>
+  </div>
+
+  <div class="band criticality">
+    <div class="band-title">Criticality Dimension Definition</div>
+    <div class="crit-level">Nivel de Criticidad: Medio (no toma decisiones financieras ni técnicas críticas)</div>
+    <div class="crit-grid">
+      <div class="pill">
+        <h4>Risk</h4>
+        <ul>
+          <li><b>Respuesta automática incorrecta:</b> un ticket complejo mal clasificado como simple puede resolverse mal y frustrar al cliente.</li>
+          <li><b>Subestimación de urgencia:</b> no detectar un problema crítico (ej. de seguridad) y tratarlo como baja prioridad.</li>
+          <li><b>Alucinación de información:</b> el agente podría inventar detalles sobre funcionalidades inexistentes del producto.</li>
+          <li><b>Pérdida de contexto al escalar:</b> un resumen mal generado puede omitir detalles clave para el agente humano.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Guardrails, Evals, LLMaaJ and Controls</h4>
+        <ul>
+          <li><b>Umbral de confianza:</b> solo se autoresponde si el score de confianza supera un mínimo definido; de lo contrario se escala.</li>
+          <li><b>Human-in-the-loop en casos sensibles:</b> tickets legales, de seguridad o facturación siempre pasan a un humano.</li>
+          <li><b>Auditoría muestral:</b> revisión periódica de respuestas cerradas automáticamente para control de calidad.</li>
+          <li><b>Trazabilidad de fuentes:</b> cada resolución debe citar los artículos de la base de conocimiento usados.</li>
+          <li><b>Feedback continuo:</b> el agente humano marca respuestas incorrectas para reentrenar el modelo.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== IDEA 2 ===================== -->
+<div class="card">
+  <div class="idea-header">
+    <span class="idea-label">IDEA 2</span>
+    <h2>Agente de Análisis de Propuestas Comerciales</h2>
+  </div>
+
+  <div class="band comm">
+    <div class="band-title">Communication Layer</div>
+    <div class="band-subtitle">No Conversacional (procesa documentos)</div>
+  </div>
+
+  <div class="band context">
+    <div class="band-title">Context Definition</div>
+    <div class="context-grid">
+      <div class="pill">
+        <h4>Domain Definition</h4>
+        <p><b>Dominio:</b> Área comercial: licitaciones y propuestas B2B.</p>
+        <p><b>Alcance:</b> Análisis y optimización de propuestas ya redactadas, antes de su envío, dentro de las categorías de RFP y tamaño de cuenta definidos por el equipo comercial.</p>
+        <p><b>Restricción:</b> No redacta propuestas desde cero sin un borrador previo, no tiene autoridad para enviar el documento final, no accede a información financiera interna más allá de lo necesario para el análisis.</p>
+      </div>
+      <div class="pill">
+        <h4>Objectives Definition</h4>
+        <ul>
+          <li>Leer una propuesta y detectar sus debilidades.</li>
+          <li>Comparar el contenido contra los requisitos del cliente (RFP).</li>
+          <li>Sugerir mejoras y generar una versión optimizada del documento.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="band env">
+    <div class="band-title">Environment Definition</div>
+    <div class="env-grid">
+      <div class="pill">
+        <h4>Knowledge</h4>
+        <ul>
+          <li>Plantillas de propuestas ganadoras anteriores.</li>
+          <li>Requisitos del cliente (RFP).</li>
+          <li>Guía de estilo corporativo.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Tools</h4>
+        <ul>
+          <li>Lectura de PDFs / DOCX.</li>
+          <li>Búsqueda de antecedentes del cliente en la web.</li>
+          <li>Generación de documento Word con los cambios sugeridos.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Short Term Memory</h4>
+        <p>Propuesta activa y RFP del cliente en la sesión actual.</p>
+        <h4 style="margin-top:10px;">Long Term Memory</h4>
+        <p>Propuestas ganadas y perdidas junto con sus resultados.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band autonomy">
+    <div class="band-title">Autonomy Dimension Definition</div>
+    <p class="level">Semi-Autónomo</p>
+    <p>Sugiere cambios y genera una versión optimizada, pero no decide el envío final de la propuesta.</p>
+  </div>
+
+  <div class="band criticality">
+    <div class="band-title">Criticality Dimension Definition</div>
+    <div class="crit-level">Nivel de Criticidad: Alto (impacta el negocio directamente)</div>
+    <div class="crit-grid">
+      <div class="pill">
+        <h4>Risk</h4>
+        <ul>
+          <li><b>Filtración de información confidencial:</b> la búsqueda de antecedentes del cliente en la web puede exponer datos sensibles.</li>
+          <li><b>Recomendaciones sesgadas:</b> favorecer patrones de propuestas ganadoras pasadas que ya no son relevantes.</li>
+          <li><b>Envío sin revisión crítica:</b> el equipo comercial podría confiar ciegamente en la versión generada.</li>
+          <li><b>Alucinación de datos del cliente:</b> inventar detalles no verificados sobre el RFP o la empresa.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Guardrails, Evals, LLMaaJ and Controls</h4>
+        <ul>
+          <li><b>Aprobación humana obligatoria:</b> ningún documento se envía sin validación de un responsable comercial.</li>
+          <li><b>Cambios marcados (tracked changes):</b> cada modificación sugerida se etiqueta con su justificación.</li>
+          <li><b>Fuentes restringidas:</b> la búsqueda web se limita a fuentes públicas verificadas.</li>
+          <li><b>Checklist de cumplimiento del RFP:</b> validación automática de requisitos obligatorios antes de sugerir mejoras.</li>
+          <li><b>Medición de impacto:</b> seguimiento de tasa de éxito de propuestas modificadas vs. no modificadas.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== IDEA 3 ===================== -->
+<div class="card">
+  <div class="idea-header">
+    <span class="idea-label">IDEA 3</span>
+    <h2>Agente de Monitoreo de Competencia y Precios</h2>
+  </div>
+
+  <div class="band comm">
+    <div class="band-title">Communication Layer</div>
+    <div class="band-subtitle">No Conversacional (corre en batch diario)</div>
+  </div>
+
+  <div class="band context">
+    <div class="band-title">Context Definition</div>
+    <div class="context-grid">
+      <div class="pill">
+        <h4>Domain Definition</h4>
+        <p><b>Dominio:</b> Inteligencia comercial / estrategia de pricing.</p>
+        <p><b>Alcance:</b> Monitoreo diario de una lista predefinida de competidores y productos, usando únicamente fuentes públicas aprobadas.</p>
+        <p><b>Restricción:</b> No monitorea fuentes fuera de la lista aprobada ni contenido protegido por login, no modifica precios propios, no negocia ni contacta a terceros.</p>
+      </div>
+      <div class="pill">
+        <h4>Objectives Definition</h4>
+        <ul>
+          <li>Monitorear precios y noticias de competidores.</li>
+          <li>Detectar cambios relevantes en el mercado.</li>
+          <li>Generar un reporte ejecutivo diario.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="band env">
+    <div class="band-title">Environment Definition</div>
+    <div class="env-grid">
+      <div class="pill">
+        <h4>Knowledge</h4>
+        <ul>
+          <li>Lista de competidores y productos a monitorear.</li>
+          <li>Umbrales de variación de precio que activan alerta.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Tools</h4>
+        <ul>
+          <li>Web scraping de páginas de competidores.</li>
+          <li>Búsqueda de noticias relevantes.</li>
+          <li>Envío de reporte por email.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Short Term Memory</h4>
+        <p>Resultados del scraping de la corrida actual.</p>
+        <h4 style="margin-top:10px;">Long Term Memory</h4>
+        <p>Historial de precios (tendencias) y alertas enviadas anteriormente.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band autonomy">
+    <div class="band-title">Autonomy Dimension Definition</div>
+    <p class="level">Autónomo</p>
+    <p>Opera sin intervención humana, salvo la configuración inicial de competidores y umbrales.</p>
+  </div>
+
+  <div class="band criticality">
+    <div class="band-title">Criticality Dimension Definition</div>
+    <div class="crit-level">Nivel de Criticidad: Medio (informa, no actúa sobre precios directamente)</div>
+    <div class="crit-grid">
+      <div class="pill">
+        <h4>Risk</h4>
+        <ul>
+          <li><b>Scraping no autorizado:</b> violar términos de servicio o normativa legal al extraer datos de terceros.</li>
+          <li><b>Falsos positivos:</b> reportar cambios de precio que en realidad son errores o pruebas A/B del competidor.</li>
+          <li><b>Desactualización silenciosa:</b> si un sitio cambia su estructura, el agente podría dejar de detectar cambios sin avisar.</li>
+          <li><b>Decisiones sin contexto estratégico:</b> reaccionar solo a los datos sin considerar la estrategia de marca.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Guardrails, Evals, LLMaaJ and Controls</h4>
+        <ul>
+          <li><b>Cumplimiento legal en scraping:</b> verificar robots.txt y términos de uso de cada fuente antes de extraer datos.</li>
+          <li><b>Validación cruzada:</b> confirmar un cambio de precio con al menos dos fuentes antes de reportarlo.</li>
+          <li><b>Monitoreo de salud del scraper:</b> alertas automáticas si una fuente deja de responder o cambia de estructura.</li>
+          <li><b>Solo informa, no actúa:</b> el agente nunca modifica precios propios; la decisión la toma un humano.</li>
+          <li><b>Revisión periódica de umbrales:</b> ajuste manual para evitar fatiga por falsos positivos.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== IDEA 4 ===================== -->
+<div class="card">
+  <div class="idea-header">
+    <span class="idea-label">IDEA 4</span>
+    <h2>Agente de Revisión de Cumplimiento Regulatorio</h2>
+  </div>
+
+  <div class="band comm">
+    <div class="band-title">Communication Layer</div>
+    <div class="band-subtitle">No Conversacional (audita documentos)</div>
+  </div>
+
+  <div class="band context">
+    <div class="band-title">Context Definition</div>
+    <div class="context-grid">
+      <div class="pill">
+        <h4>Domain Definition</h4>
+        <p><b>Dominio:</b> Legal / compliance en industria financiera, salud o manufactura.</p>
+        <p><b>Alcance:</b> Auditoría de contratos y políticas internas contra la normativa vigente cargada en la base vectorial, dentro de las jurisdicciones configuradas.</p>
+        <p><b>Restricción:</b> No emite opinión legal vinculante, no audita normativa fuera de las jurisdicciones cargadas, no modifica, firma ni aprueba documentos.</p>
+      </div>
+      <div class="pill">
+        <h4>Objectives Definition</h4>
+        <ul>
+          <li>Leer contratos o políticas internas.</li>
+          <li>Verificar cumplimiento contra la normativa vigente.</li>
+          <li>Generar un reporte de gaps con referencias exactas.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="band env">
+    <div class="band-title">Environment Definition</div>
+    <div class="env-grid">
+      <div class="pill">
+        <h4>Knowledge</h4>
+        <ul>
+          <li>Normativas regulatorias (base vectorial).</li>
+          <li>Contratos anteriores auditados.</li>
+          <li>Glosario legal.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Tools</h4>
+        <ul>
+          <li>Lectura de documentos.</li>
+          <li>Búsqueda de artículos específicos en la base normativa.</li>
+          <li>Generación de reporte PDF con hallazgos.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Short Term Memory</h4>
+        <p>Documento siendo auditado en la sesión actual.</p>
+        <h4 style="margin-top:10px;">Long Term Memory</h4>
+        <p>Historial de auditorías y patrones de incumplimiento frecuentes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band autonomy">
+    <div class="band-title">Autonomy Dimension Definition</div>
+    <p class="level">Constreñido</p>
+    <p>Solo señala hallazgos; nunca modifica contratos ni políticas internas.</p>
+  </div>
+
+  <div class="band criticality">
+    <div class="band-title">Criticality Dimension Definition</div>
+    <div class="crit-level">Nivel de Criticidad: Alto-Crítico (errores pueden tener consecuencias legales)</div>
+    <div class="crit-grid">
+      <div class="pill">
+        <h4>Risk</h4>
+        <ul>
+          <li><b>Falsos negativos críticos:</b> no detectar un incumplimiento real por una base normativa desactualizada.</li>
+          <li><b>Interpretación legal incorrecta:</b> malinterpretar lenguaje legal ambiguo y generar hallazgos erróneos.</li>
+          <li><b>Exceso de confianza del equipo legal:</b> tratar el reporte como validación legal definitiva sin revisión humana.</li>
+          <li><b>Manejo de información sensible:</b> contratos y políticas internas contienen datos confidenciales que requieren protección estricta.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Guardrails, Evals, LLMaaJ and Controls</h4>
+        <ul>
+          <li><b>Revisión legal obligatoria:</b> ningún hallazgo es definitivo sin validación de un abogado o compliance officer.</li>
+          <li><b>Actualización constante de la base normativa:</b> verificación periódica de que la base vectorial refleja la normativa vigente.</li>
+          <li><b>Citación exacta y trazable:</b> cada hallazgo referencia el artículo normativo y la cláusula exacta del documento.</li>
+          <li><b>Autonomía constreñida:</b> el agente señala gaps, nunca genera recomendaciones de acción legal.</li>
+          <li><b>Auditoría del propio agente:</b> registro de todas las auditorías realizadas para trazabilidad ante entes reguladores.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== IDEA 5 ===================== -->
+<div class="card">
+  <div class="idea-header">
+    <span class="idea-label">IDEA 5</span>
+    <h2>Agente de Onboarding de Nuevos Empleados</h2>
+  </div>
+
+  <div class="band comm">
+    <div class="band-title">Communication Layer</div>
+    <div class="band-subtitle">Conversacional (interactúa con el nuevo empleado)</div>
+  </div>
+
+  <div class="band context">
+    <div class="band-title">Context Definition</div>
+    <div class="context-grid">
+      <div class="pill">
+        <h4>Domain Definition</h4>
+        <p><b>Dominio:</b> RRHH / gestión del conocimiento organizacional.</p>
+        <p><b>Alcance:</b> Acompañamiento administrativo y de conocimiento general durante las primeras semanas (típ. 30-90 días) del nuevo empleado.</p>
+        <p><b>Restricción:</b> No participa en decisiones de evaluación de desempeño, compensación o disciplinarias, no reemplaza la inducción presencial con el manager directo.</p>
+      </div>
+      <div class="pill">
+        <h4>Objectives Definition</h4>
+        <ul>
+          <li>Guiar al nuevo empleado en sus primeras semanas.</li>
+          <li>Responder dudas sobre procesos internos.</li>
+          <li>Asignar tareas de onboarding y monitorear su progreso.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="band env">
+    <div class="band-title">Environment Definition</div>
+    <div class="env-grid">
+      <div class="pill">
+        <h4>Knowledge</h4>
+        <ul>
+          <li>Manual del empleado y organigrama.</li>
+          <li>Políticas internas.</li>
+          <li>FAQs de nuevo ingreso.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Tools</h4>
+        <ul>
+          <li>Acceso al sistema de RRHH (credenciales, asignación de cursos).</li>
+          <li>Envío de emails.</li>
+          <li>Calendario para agendar reuniones.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Short Term Memory</h4>
+        <p>Conversación activa con el empleado.</p>
+        <h4 style="margin-top:10px;">Long Term Memory</h4>
+        <p>Progreso del empleado, tareas completadas y dudas frecuentes por área.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band autonomy">
+    <div class="band-title">Autonomy Dimension Definition</div>
+    <p class="level">Semi-Autónomo</p>
+    <p>Ejecuta tareas administrativas de forma autónoma y escala dudas complejas al equipo de RRHH.</p>
+  </div>
+
+  <div class="band criticality">
+    <div class="band-title">Criticality Dimension Definition</div>
+    <div class="crit-level">Nivel de Criticidad: Medio (impacta la experiencia del empleado, no decisiones críticas)</div>
+    <div class="crit-grid">
+      <div class="pill">
+        <h4>Risk</h4>
+        <ul>
+          <li><b>Información desactualizada:</b> cambios en el manual o políticas internas que el agente no refleja a tiempo.</li>
+          <li><b>Ritmo de onboarding mal calibrado:</b> sobrecargar o desatender al nuevo empleado con tareas.</li>
+          <li><b>Manejo de temas sensibles:</b> preguntas sobre compensación, conflictos o quejas requieren trato humano.</li>
+          <li><b>Dependencia excesiva:</b> el empleado podría no construir vínculo con su equipo si el agente cubre demasiado.</li>
+        </ul>
+      </div>
+      <div class="pill">
+        <h4>Guardrails, Evals, LLMaaJ and Controls</h4>
+        <ul>
+          <li><b>Escalamiento claro a RRHH:</b> temas de compensación, conflictos o quejas se derivan siempre a un humano.</li>
+          <li><b>Revisión periódica de contenido:</b> el manual y las políticas usadas se validan y actualizan en cada ciclo.</li>
+          <li><b>Checkpoints humanos programados:</b> reuniones obligatorias con el manager o RRHH en momentos clave.</li>
+          <li><b>Feedback del empleado:</b> encuestas cortas para medir si la interacción fue útil o generó fricción.</li>
+          <li><b>Transparencia:</b> el empleado siempre sabe que interactúa con un agente y cómo contactar a un humano.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

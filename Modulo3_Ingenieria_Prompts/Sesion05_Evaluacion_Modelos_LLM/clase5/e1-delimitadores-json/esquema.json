@@ -1,0 +1,10 @@
+{
+  "reseñas": [
+    {
+      "producto": "string",
+      "valoracion": "number (1..5)",
+      "sentimiento": "string (positivo|neutro|negativo)",
+      "recomendaria": "boolean"
+    }
+  ]
+}

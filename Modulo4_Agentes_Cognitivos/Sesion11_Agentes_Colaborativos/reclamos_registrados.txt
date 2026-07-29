@@ -1,0 +1,15 @@
+
+============================================================
+CÓDIGO DEL RECLAMO: REC-F5898854
+FECHA DE REGISTRO: 2026-07-16 20:44:09
+PRODUCTO: Tarjeta de crédito
+CLIENTE: SHERLOCK HOLMES
+DNI: 12345678
+TARJETA TERMINADA EN: 7890
+FECHA DE LA OPERACIÓN: 16/07/2026
+MONTO RECLAMADO: S/ 1500.00
+COMERCIO O DESCRIPCIÓN: LATAM AIRLINES
+DETALLE DEL RECLAMO: Consumo no reconocido
+SOLUCIÓN SOLICITADA: Reembolso del monto a la cuenta
+ESTADO: Resuelto - Aprobado - Reembolso total
+============================================================

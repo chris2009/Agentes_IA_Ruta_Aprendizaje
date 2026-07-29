@@ -1,0 +1,65 @@
+# --- Secretos ---
+.env
+*.env
+!.env.example
+
+# --- Entornos virtuales / cachés de Python ---
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# --- Instaladores y binarios pesados ---
+OllamaSetup.exe
+*.exe
+
+# --- Material con copyright de terceros (no redistribuir) ---
+# Diapositivas y PDFs del docente / la universidad (UTEC) -- no son
+# material propio, no se redistribuyen.
+AI Engineering (Chip Huyen) (Z-Library).pdf
+*Z-Library*.pdf
+NIPS-2017-attention-is-all-you-need-Paper.pdf
+Brochure Programa en Diseño e Implementación de Agentes IA.pdf
+Sesiondeinauguracion-DisenoeImplementaciondeAgentesIA.pdf
+**/SES*_M*_*.pdf
+**/_taller_*.pdf
+**/_S01*.pdf
+Modulo3_Ingenieria_Prompts/**/Ingeniería de Prompts*.pdf
+Modulo3_Ingenieria_Prompts/**/Programa en D&I Agentes IA*.pdf
+
+# Rutas explícitas (por claridad, aunque ya quedan cubiertas arriba)
+Modulo1_Introduccion_Motivacion/Sesion01_Introduccion_Agentes/_S01 - AI Agents - Sábado.pdf
+Modulo2_Fundamentos_LLMs/Sesion02-Bases_Agentes_LLMs/_taller_1_LLMs_fundamentals.pdf
+Modulo2_Fundamentos_LLMs/Sesion03_Arquitectura_Funcional_agentes_LLM/_taller_2_agents.pdf
+Modulo2_Fundamentos_LLMs/Sesion04_Evaluacion_Modelos_LLM/_taller_5_LLMs_evaluation.pdf
+Modulo3_Ingenieria_Prompts/Sesion05_Evaluacion_Modelos_LLM/Ingeniería de Prompts [C5 -2026].pdf
+Modulo3_Ingenieria_Prompts/Sesion06_Razonamiento_mediante_Prompts/Programa en D&I Agentes IA - UTEC - Razonamiento mediante prompts [C6 -2026].pdf
+Modulo3_Ingenieria_Prompts/Sesion07_Modularizacion_Prompts/Programa en D&I Agentes IA - UTEC - Modularización de prompts en agentes [C7 -2026].pdf
+Modulo4_Agentes_Cognitivos/Sesion8_Arquitectura_Agentes/SES8_M4_AgenticArchitecture.pdf
+Modulo4_Agentes_Cognitivos/Sesion9_Agentes_Memoria_Contextual/SES9_M4_AgenticMemory.pdf
+Modulo4_Agentes_Cognitivos/Sesion10_Agentes_Reflexivos/SES10_M4_ReflexAgents.pdf
+Modulo4_Agentes_Cognitivos/Sesion11_Agentes_Colaborativos/SES11_M4_CollaborativeAgents.pdf
+Modulo5_Herramientas_para_Orquestacion/Sesion12_LangChain_Agents/SES12_M5_Langchain_Agents_Tools.pdf
+
+# --- Documentos personales / información identificable ---
+Carta de Compromiso UTEC.docx
+Carta de Compromiso UTEC.pdf
+Inscripcion_Christian_Cajusol.docx
+Inscripcion_Christian_Cajusol.pdf
+BOLETA-*.pdf
+Python - Programa en Agentes IA (respuestas).xlsx
+Python - Programa en Agentes IA.csv.zip
+Python - Programa en Agentes IA - Formularios de Google.pdf
+
+# --- Archivos comprimidos ya extraídos en carpetas al lado ---
+clase5-*.zip
+clase6-*.zip
+clase7-*.zip
+
+# --- Configuración de editores / SO ---
+.obsidian/
+.vscode/
+.idea/
+desktop.ini
+.DS_Store
+Thumbs.db

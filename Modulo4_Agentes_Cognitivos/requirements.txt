@@ -1,0 +1,20 @@
+# LangChain 1.x + LangGraph + integración Ollama
+# (versiones verificadas: langchain 1.3.x, langgraph 1.2.x, langchain-ollama 1.1.x)
+langchain>=1.3.0
+langgraph>=1.2.0
+langchain-ollama>=1.1.0
+ipykernel>=6.29.0
+jupyter>=1.0.0
+
+# Sesion11: checkpointer de LangGraph que persiste a un archivo .sqlite
+# (en vez de InMemorySaver, que se pierde al cerrar el proceso)
+langgraph-checkpoint-sqlite>=3.1.0
+
+# Sesion11: integración opcional con OpenAI (alternativa a Ollama).
+# Solo hace falta si se define OPENAI_API_KEY en el .env de esa sesión.
+langchain-openai>=1.3.0
+python-dotenv>=1.2.0
+
+# Sesion11: versión del agente de reclamos hecha con langchain.agents.create_agent
+# + Anthropic (Claude) en vez de LangGraph + Ollama/OpenAI.
+langchain-anthropic>=1.4.0

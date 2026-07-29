@@ -1,0 +1,26 @@
+{"fecha": "2026-07-16 20:42:02", "role": "user", "content": "Hola"}
+{"fecha": "2026-07-16 20:42:10", "role": "assistant", "content": "¡Hola! 👋 Bienvenido/a al servicio de atención al cliente de nuestro banco.\n\nSoy tu agente virtual y estoy aquí para ayudarte con reclamos relacionados con tu **tarjeta de crédito**, como por ejemplo:\n\n- Consumos no reconocidos\n- Cobros duplicados\n- Montos incorrectos\n- Pagos que no aparecen\n- Comisiones incorrectas\n\nTambién puedo ayudarte a **consultar el estado de un reclamo** que ya hayas registrado.\n\n¿En qué puedo ayudarte hoy?"}
+{"fecha": "2026-07-16 20:42:24", "role": "user", "content": "quiero hacer un reclamo"}
+{"fecha": "2026-07-16 20:42:26", "role": "assistant", "content": "¡Con gusto te ayudo a registrar tu reclamo! 😊\n\nPara comenzar, ¿me podrías decir tu **nombre completo**?"}
+{"fecha": "2026-07-16 20:42:35", "role": "user", "content": "SHERLOCK HOLMES"}
+{"fecha": "2026-07-16 20:42:40", "role": "assistant", "content": "Mucho gusto, Sherlock. 😊\n\nAhora necesito tu **DNI** (8 dígitos) para poder identificarte correctamente. ¿Me lo podrías indicar?"}
+{"fecha": "2026-07-16 20:42:45", "role": "user", "content": "12345678"}
+{"fecha": "2026-07-16 20:42:48", "role": "assistant", "content": "Perfecto, gracias.\n\nAhora, ¿me podrías indicar los **últimos 4 dígitos** de tu tarjeta de crédito?"}
+{"fecha": "2026-07-16 20:42:52", "role": "user", "content": "7890"}
+{"fecha": "2026-07-16 20:42:54", "role": "assistant", "content": "Gracias. Ahora necesito saber, ¿cuál es la **fecha de la operación** que querés reclamar?"}
+{"fecha": "2026-07-16 20:43:03", "role": "user", "content": "16/07/26"}
+{"fecha": "2026-07-16 20:43:04", "role": "assistant", "content": "Entendido. ¿Cuál es el **monto** de la operación que querés reclamar?"}
+{"fecha": "2026-07-16 20:43:08", "role": "user", "content": "1500"}
+{"fecha": "2026-07-16 20:43:12", "role": "assistant", "content": "¿En qué moneda fue el cobro? ¿Pesos argentinos (ARS) o dólares (USD)?"}
+{"fecha": "2026-07-16 20:43:15", "role": "user", "content": "SOLES"}
+{"fecha": "2026-07-16 20:43:17", "role": "assistant", "content": "Entendido, S/ 1500 soles. \n\n¿Cuál es el **nombre del comercio** o descripción de la operación reclamada?"}
+{"fecha": "2026-07-16 20:43:25", "role": "user", "content": "LATAM AIRLINES"}
+{"fecha": "2026-07-16 20:43:27", "role": "assistant", "content": "Gracias. Ahora contame, ¿qué fue lo que ocurrió con esa operación? (Por ejemplo: consumo no reconocido, cobro duplicado, monto incorrecto, etc.)"}
+{"fecha": "2026-07-16 20:43:47", "role": "user", "content": "CONSUMO NO RECONOCIDO"}
+{"fecha": "2026-07-16 20:43:49", "role": "assistant", "content": "Entendido. Y por último, ¿cuál es la **solución que estás solicitando**? (Por ejemplo: reintegro del monto, anulación del cargo, etc.)"}
+{"fecha": "2026-07-16 20:43:55", "role": "user", "content": "REEEMBOLSO DEL MONTO A MI CUENTA"}
+{"fecha": "2026-07-16 20:44:02", "role": "assistant", "content": "Perfecto. Antes de registrar el reclamo, te presento un resumen con los datos proporcionados:\n\n---\n\n📋 **Resumen del reclamo**\n\n- **Nombre:** Sherlock Holmes\n- **DNI:** 12345678\n- **Últimos 4 dígitos de la tarjeta:** 7890\n- **Fecha de la operación:** 16/07/2026\n- **Monto reclamado:** S/ 1500\n- **Comercio:** LATAM AIRLINES\n- **Descripción:** Consumo no reconocido\n- **Solución solicitada:** Reembolso del monto a la cuenta\n\n---\n\n¿Confirmás que querés registrar el reclamo con estos datos?"}
+{"fecha": "2026-07-16 20:44:06", "role": "user", "content": "SI"}
+{"fecha": "2026-07-16 20:44:22", "role": "assistant", "content": "¡Tu reclamo fue registrado exitosamente! ✅\n\nTu **código de seguimiento es: REC-F5898854**. Guardalo para poder consultar el estado de tu reclamo cuando lo necesites.\n\n---\n\n⚠️ **Importante:** Dado que se trata de un consumo no reconocido, te recomendamos comunicarte con los **canales oficiales del banco** para solicitar el **bloqueo temporal de tu tarjeta** y evitar posibles nuevos cargos no autorizados.\n\n¿Hay algo más en lo que pueda ayudarte?"}
+{"fecha": "2026-07-16 20:44:26", "role": "user", "content": "NO, GRACIAS"}
+{"fecha": "2026-07-16 20:44:29", "role": "assistant", "content": "¡De nada, Sherlock! 😊 Fue un placer atenderte. Ante cualquier consulta o nuevo reclamo, no dudes en contactarnos. ¡Que tengas un excelente día! 👋"}

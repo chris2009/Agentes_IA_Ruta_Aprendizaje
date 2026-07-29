@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 casos de agentes de IA</title>
+  <style>
+    :root {
+      --ink: #111;
+      --border: #202020;
+      --communication: #dfe9df;
+      --context: #b7d9f0;
+      --environment: #b9e4e7;
+      --autonomy: #fff0c9;
+      --criticality: #f7cfd3;
+      --paper: #ffffff;
+      --page-bg: #f3f5f7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.35;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(20, 28, 35, 0.96);
+      color: white;
+      padding: 14px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+
+    .topbar .inner {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .topbar strong {
+      font-size: 18px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.35);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    .nav a:hover {
+      background: rgba(255,255,255,.14);
+    }
+
+    main {
+      width: min(1500px, calc(100% - 24px));
+      margin: 22px auto 50px;
+    }
+
+    .agent-sheet {
+      background: var(--paper);
+      border: 2px solid var(--border);
+      margin: 0 auto 34px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+
+    .case-title {
+      padding: 22px 28px;
+      border-bottom: 2px solid var(--border);
+      background: #fff;
+      text-align: center;
+    }
+
+    .case-title h1 {
+      margin: 7px 0 0;
+      font-size: clamp(22px, 2.3vw, 34px);
+      line-height: 1.2;
+    }
+
+    .case-number {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #111;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 999px;
+    }
+
+    .section {
+      border-bottom: 2px solid var(--border);
+      padding: 18px 18px 20px;
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+    }
+
+    .section > h2 {
+      margin: 0 0 4px;
+      text-align: center;
+      font-size: clamp(22px, 2vw, 31px);
+      line-height: 1.1;
+    }
+
+    .section > h3 {
+      margin: 0 0 10px;
+      text-align: center;
+      font-size: clamp(17px, 1.45vw, 23px);
+    }
+
+    .section > h4 {
+      margin: 12px 0 2px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .section > p {
+      margin: 5px auto;
+      text-align: center;
+      max-width: 1200px;
+      font-size: 16px;
+    }
+
+    .communication {
+      background: var(--communication);
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .context {
+      background: var(--context);
+    }
+
+    .environment {
+      background: var(--environment);
+    }
+
+    .autonomy {
+      background: var(--autonomy);
+    }
+
+    .criticality {
+      background: var(--criticality);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 14px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .environment-grid {
+      grid-template-columns: 1fr 1.08fr 1.1fr;
+    }
+
+    .memory-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .box {
+      background: rgba(255,255,255,.94);
+      border: 2px solid var(--border);
+      border-radius: 42px;
+      padding: 14px 20px 16px;
+      min-width: 0;
+    }
+
+    .box h3 {
+      text-align: center;
+      margin: 0 0 8px;
+      font-size: clamp(20px, 1.7vw, 28px);
+      line-height: 1.05;
+    }
+
+    .box p {
+      margin: 8px 0;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .box ul {
+      margin: 8px 0 0;
+      padding-left: 22px;
+    }
+
+    .box li {
+      margin: 6px 0;
+      font-size: 15px;
+    }
+
+    .memory {
+      border-radius: 26px;
+    }
+
+    .critical-grid .box {
+      border-radius: 70px;
+      padding-left: 28px;
+      padding-right: 28px;
+    }
+
+    @media (max-width: 1000px) {
+      .grid.two,
+      .environment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .critical-grid .box,
+      .box {
+        border-radius: 28px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        width: calc(100% - 10px);
+        margin-top: 10px;
+      }
+
+      .topbar {
+        position: static;
+      }
+
+      .section {
+        padding: 14px 10px 16px;
+      }
+
+      .box {
+        padding: 14px 16px;
+      }
+
+      .box li,
+      .box p,
+      .section > p {
+        font-size: 14px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .topbar {
+        display: none;
+      }
+
+      main {
+        width: 100%;
+        margin: 0;
+      }
+
+      .agent-sheet {
+        box-shadow: none;
+        margin: 0;
+        page-break-after: always;
+        break-after: page;
+      }
+
+      .agent-sheet:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      .box {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="inner">
+      <strong>Arquitectura de agentes de IA — 5 casos</strong>
+      <nav class="nav" aria-label="Navegación entre casos">
+        <a href="#caso-1">Caso 1</a>
+        <a href="#caso-2">Caso 2</a>
+        <a href="#caso-3">Caso 3</a>
+        <a href="#caso-4">Caso 4</a>
+        <a href="#caso-5">Caso 5</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    
+    <section class="agent-sheet" id="caso-1">
+      <div class="case-title">
+        <span class="case-number">Caso 1</span>
+        <h1>Idea 1 — Agente de Triaje de Soporte al Cliente</h1>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>No conversacional</h3>
+        <p>Procesa automáticamente los tickets que ingresan al sistema de soporte. Puede generar respuestas escritas, pero no mantiene una conversación autónoma fuera del ticket activo.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Soporte técnico de primer nivel para una empresa de software o servicios SaaS.</p>
+            <p><strong>Alcance:</strong> Recepción, clasificación, priorización y atención inicial de solicitudes relacionadas con acceso, configuración, funcionamiento básico, consultas frecuentes y errores conocidos del producto.</p>
+            <p><strong>Restricción clave:</strong> No debe ejecutar cambios irreversibles, modificar información crítica, acceder a credenciales del cliente ni resolver incidentes de seguridad, infraestructura o pérdida de datos sin intervención humana.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Analizar y clasificar tickets por tipo, urgencia, impacto y complejidad.</li><li>Resolver automáticamente consultas cubiertas por procedimientos aprobados.</li><li>Escalar los casos complejos al equipo correspondiente.</li><li>Generar un resumen estructurado del problema, acciones realizadas y evidencia disponible.</li><li>Reducir el tiempo de primera respuesta y la carga operativa del equipo de soporte.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Base de conocimiento oficial y actualizada.</li><li>Preguntas frecuentes, manuales técnicos y documentación del producto.</li><li>Catálogo de productos, servicios y versiones.</li><li>Matriz de severidad y acuerdos de nivel de servicio.</li><li>Historial de tickets resueltos y soluciones validadas.</li><li>Árboles de diagnóstico y criterios de escalamiento.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Conexión con Zendesk, Jira Service Management u otro sistema de tickets.</li><li>Consulta de la base de conocimiento.</li><li>Clasificador de intención, urgencia y categoría.</li><li>Recuperación semántica de casos similares.</li><li>Envío de respuestas al cliente.</li><li>Creación y asignación de tickets escalados.</li><li>Generación automática de resúmenes.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Ticket activo.</li><li>Mensajes intercambiados dentro del caso.</li><li>Datos técnicos proporcionados por el cliente.</li><li>Soluciones consultadas durante la atención.</li><li>Acciones ya ejecutadas.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Patrones de tickets recurrentes.</li><li>Soluciones previamente validadas.</li><li>Preferencias de escalamiento del equipo.</li><li>Retroalimentación de los agentes humanos.</li><li>Historial anonimizado de respuestas aceptadas o rechazadas.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Semi-autónomo</h3>
+        <p>Puede clasificar, responder y cerrar tickets de baja complejidad cuando la solución se encuentre expresamente aprobada.</p>
+        <h4>Constreñimiento</h4>
+        <p>Debe escalar automáticamente los casos de seguridad, pérdida de datos, infraestructura, facturación controvertida, afectación masiva, clientes prioritarios o baja confianza en la respuesta.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Medio (controlado)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Clasificación incorrecta de la urgencia.</li><li>Respuestas erróneas o desactualizadas.</li><li>Cierre prematuro de incidentes no resueltos.</li><li>Exposición de información sensible.</li><li>Escalamiento hacia el equipo incorrecto.</li><li>Automatización excesiva de casos que requieren diagnóstico humano.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Responder solo con información recuperada de fuentes aprobadas.</li><li>Mostrar la fuente o procedimiento utilizado.</li><li>Aplicar umbrales mínimos de confianza.</li><li>Prohibir el cierre automático de tickets críticos.</li><li>Anonimizar datos y aplicar control de acceso por rol.</li><li>Usar LLM-as-a-Judge para evaluar exactitud, relevancia, tono y correspondencia con la base de conocimiento.</li><li>Mantener supervisión humana, auditoría y registro de acciones.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    
+    <section class="agent-sheet" id="caso-2">
+      <div class="case-title">
+        <span class="case-number">Caso 2</span>
+        <h1>Idea 2 — Agente de Análisis de Propuestas Comerciales</h1>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>No conversacional</h3>
+        <p>Procesa documentos comerciales, bases de licitación, solicitudes de propuesta y archivos complementarios.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Área comercial, licitaciones y elaboración de propuestas B2B.</p>
+            <p><strong>Alcance:</strong> Análisis de propuestas comerciales, comparación con requisitos del cliente, detección de omisiones, evaluación de consistencia y generación de recomendaciones de mejora.</p>
+            <p><strong>Restricción clave:</strong> No puede aprobar precios, alterar condiciones contractuales, inventar capacidades de la empresa, asumir compromisos comerciales ni enviar la propuesta final al cliente.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Leer y estructurar propuestas comerciales extensas.</li><li>Extraer requisitos obligatorios, deseables y evaluables de la RFP.</li><li>Verificar que cada requisito tenga una respuesta dentro de la propuesta.</li><li>Detectar inconsistencias, vacíos, duplicidades y afirmaciones sin respaldo.</li><li>Sugerir mejoras de contenido, claridad, diferenciación y persuasión.</li><li>Generar una versión optimizada y una matriz de cumplimiento.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>RFP del cliente y documentación comercial aprobada.</li><li>Plantillas corporativas.</li><li>Propuestas ganadoras y perdidas.</li><li>Casos de éxito autorizados.</li><li>Catálogo vigente de productos y servicios.</li><li>Políticas comerciales y de precios.</li><li>Guía de estilo y comunicación corporativa.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Lectura y extracción de contenido de PDF y DOCX.</li><li>Reconocimiento de tablas y anexos.</li><li>Comparador semántico entre la RFP y la propuesta.</li><li>Búsqueda de antecedentes públicos del cliente.</li><li>Generador de matriz de cumplimiento.</li><li>Generación de documentos Word con cambios controlados.</li><li>Control de versiones.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Propuesta activa.</li><li>RFP y anexos del cliente.</li><li>Matriz de requisitos.</li><li>Observaciones realizadas durante la sesión.</li><li>Versiones generadas para comparación.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Propuestas ganadoras y perdidas.</li><li>Resultados de licitaciones anteriores.</li><li>Retroalimentación de clientes.</li><li>Debilidades recurrentes.</li><li>Elementos diferenciadores con mejor desempeño.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Semi-autónomo</h3>
+        <p>Analiza, compara, redacta y recomienda cambios, pero la aprobación y el envío corresponden al responsable comercial.</p>
+        <h4>Constreñimiento</h4>
+        <p>No puede modificar automáticamente precios, plazos, garantías, penalidades, alcance contractual, certificaciones ni declaraciones legales.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Alto (controlado)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Omisión de requisitos obligatorios.</li><li>Interpretación incorrecta de la RFP.</li><li>Inclusión de capacidades o certificaciones inexistentes.</li><li>Alteración involuntaria de precios o condiciones.</li><li>Uso de información confidencial de otras propuestas.</li><li>Investigación web basada en información desactualizada.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Mantener trazabilidad entre cada recomendación y su requisito.</li><li>Etiquetar claramente las afirmaciones no verificadas.</li><li>Bloquear modificaciones en precios, contratos y garantías.</li><li>Verificar capacidades contra el catálogo corporativo vigente.</li><li>Evitar reutilización de datos confidenciales.</li><li>Usar LLM-as-a-Judge para evaluar cobertura, coherencia, precisión y evidencia.</li><li>Requerir revisión comercial, técnica y legal antes del envío.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    
+    <section class="agent-sheet" id="caso-3">
+      <div class="case-title">
+        <span class="case-number">Caso 3</span>
+        <h1>Idea 3 — Agente de Monitoreo de Competencia y Precios</h1>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>No conversacional</h3>
+        <p>Opera mediante procesos batch programados, principalmente con ejecución diaria o según la frecuencia definida por el área comercial.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Inteligencia comercial, análisis competitivo y estrategia de precios.</p>
+            <p><strong>Alcance:</strong> Monitoreo de información pública sobre precios, promociones, lanzamientos, noticias, características de productos y movimientos relevantes de competidores previamente definidos.</p>
+            <p><strong>Restricción clave:</strong> Solo puede recopilar información obtenida legítimamente de fuentes públicas y no puede modificar precios, realizar compras, acceder a áreas privadas, evadir controles técnicos ni ejecutar decisiones comerciales.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Monitorear precios y promociones de productos seleccionados.</li><li>Detectar variaciones superiores a umbrales configurados.</li><li>Identificar nuevos productos, campañas y cambios de portafolio.</li><li>Buscar noticias relevantes sobre competidores.</li><li>Comparar la posición de precios de la empresa frente al mercado.</li><li>Generar reportes ejecutivos y alertas.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Lista oficial de competidores y productos.</li><li>Catálogo de productos propios.</li><li>Productos equivalentes o comparables.</li><li>Umbrales de variación de precios.</li><li>Fuentes web autorizadas.</li><li>Criterios para clasificar noticias relevantes.</li><li>Políticas internas de inteligencia comercial.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Web scraping de páginas autorizadas.</li><li>Consulta de APIs públicas.</li><li>Motores de búsqueda de noticias.</li><li>Normalización de monedas, unidades y presentaciones.</li><li>Comparador de productos.</li><li>Detección de cambios en páginas web.</li><li>Generación de reportes y envío de alertas por correo.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Resultados del scraping actual.</li><li>Páginas procesadas.</li><li>Errores de extracción.</li><li>Precios detectados durante la ejecución.</li><li>Noticias recopiladas en el ciclo actual.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Histórico de precios.</li><li>Tendencias por competidor y producto.</li><li>Alertas emitidas anteriormente.</li><li>Cambios de portafolio.</li><li>Frecuencia histórica de promociones.</li><li>Fuentes con problemas recurrentes.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Autónomo</h3>
+        <p>Ejecuta la recopilación, comparación, análisis y distribución de reportes sin intervención cotidiana.</p>
+        <h4>Constreñimiento</h4>
+        <p>Su autonomía termina en la generación de información. No puede cambiar precios, contactar competidores, efectuar transacciones ni adoptar decisiones comerciales.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Medio (controlado)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Asociación incorrecta entre productos no equivalentes.</li><li>Extracción de precios desactualizados o promocionales.</li><li>Duplicación de información.</li><li>Incumplimiento de términos de uso.</li><li>Noticias falsas o no confirmadas.</li><li>Fallas silenciosas del scraping.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Mantener una lista blanca de sitios y fuentes autorizadas.</li><li>Respetar términos de uso, robots.txt y límites de consulta.</li><li>Identificar precios promocionales, regulares y condicionados.</li><li>Verificar equivalencia de producto, moneda, presentación e impuestos.</li><li>Aplicar validaciones estadísticas para detectar valores atípicos.</li><li>Usar LLM-as-a-Judge para evaluar relevancia y coherencia del resumen.</li><li>Conservar URL, fecha y hora de cada dato.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    
+    <section class="agent-sheet" id="caso-4">
+      <div class="case-title">
+        <span class="case-number">Caso 4</span>
+        <h1>Idea 4 — Agente de Revisión de Cumplimiento Regulatorio</h1>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>No conversacional</h3>
+        <p>Audita contratos, procedimientos, políticas y otros documentos institucionales contra una base normativa controlada.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Área legal y de cumplimiento regulatorio en industrias reguladas.</p>
+            <p><strong>Alcance:</strong> Identificación de obligaciones normativas, comparación documental, detección de brechas y generación de reportes con referencias regulatorias precisas.</p>
+            <p><strong>Restricción clave:</strong> No brinda una opinión legal definitiva, no modifica documentos, no determina sanciones ni declara formalmente que una organización cumple o incumple la normativa.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Analizar contratos, políticas y procedimientos internos.</li><li>Identificar obligaciones regulatorias aplicables.</li><li>Relacionar cada requisito normativo con la sección correspondiente.</li><li>Detectar omisiones, contradicciones y disposiciones desactualizadas.</li><li>Clasificar hallazgos por severidad y nivel de evidencia.</li><li>Generar una matriz y un reporte de cumplimiento.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Repositorio normativo validado y versionado.</li><li>Leyes, reglamentos y disposiciones aplicables.</li><li>Normas sectoriales y pronunciamientos regulatorios.</li><li>Políticas internas vigentes.</li><li>Contratos anteriormente auditados.</li><li>Glosario legal.</li><li>Criterios de aplicación territorial y temporal.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Lectura de PDF, DOCX y documentos escaneados.</li><li>Extracción y segmentación de cláusulas.</li><li>Búsqueda semántica en la base normativa.</li><li>Recuperación del texto exacto de artículos aplicables.</li><li>Comparador de versiones normativas.</li><li>Generación de matriz de cumplimiento.</li><li>Generación de reporte PDF y trazabilidad de evidencia.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Documento auditado.</li><li>Versión normativa utilizada.</li><li>Jurisdicción, sector y periodo analizado.</li><li>Hallazgos detectados.</li><li>Evidencias asociadas a cada hallazgo.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Historial de auditorías.</li><li>Patrones de incumplimiento frecuentes.</li><li>Hallazgos aceptados, corregidos o descartados.</li><li>Cambios regulatorios relevantes.</li><li>Criterios aprobados por el área legal.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Constreñido</h3>
+        <p>Se limita a señalar, comparar, citar y clasificar posibles brechas.</p>
+        <h4>Constreñimiento</h4>
+        <p>No puede modificar contratos, aprobar documentos, emitir interpretaciones vinculantes ni sustituir al asesor legal responsable.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Alto-Crítico</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Uso de normativa derogada o desactualizada.</li><li>Aplicación de una norma de otra jurisdicción.</li><li>Interpretación incorrecta de artículos ambiguos.</li><li>Falsos positivos u omisión de obligaciones.</li><li>Citas inexistentes o imprecisas.</li><li>Exposición de documentos legales confidenciales.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Usar solo normas validadas por especialistas.</li><li>Controlar vigencia, jurisdicción, sector y versión.</li><li>Incluir artículo, numeral, fuente y fecha de vigencia.</li><li>Mostrar el fragmento documental relacionado.</li><li>Distinguir entre incumplimiento evidente, posible brecha y aspecto sujeto a interpretación.</li><li>Usar LLM-as-a-Judge especializado en fidelidad normativa y trazabilidad.</li><li>Exigir revisión humana obligatoria antes del reporte definitivo.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    
+    <section class="agent-sheet" id="caso-5">
+      <div class="case-title">
+        <span class="case-number">Caso 5</span>
+        <h1>Idea 5 — Agente de Onboarding de Nuevos Empleados</h1>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>Conversacional</h3>
+        <p>Interactúa directamente con el nuevo empleado mediante chat, correo electrónico o una interfaz integrada al portal corporativo.</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Recursos Humanos, incorporación de personal y gestión del conocimiento organizacional.</p>
+            <p><strong>Alcance:</strong> Acompañamiento inicial, orientación sobre procesos internos, respuesta a preguntas frecuentes, asignación de actividades aprobadas y seguimiento durante las primeras semanas.</p>
+            <p><strong>Restricción clave:</strong> No puede tomar decisiones laborales, evaluar desempeño, modificar remuneraciones, acceder a información no autorizada ni responder asuntos sensibles que correspondan exclusivamente a Recursos Humanos.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul><li>Guiar al nuevo empleado durante su incorporación.</li><li>Explicar políticas, procesos y canales internos.</li><li>Responder preguntas frecuentes según área y cargo.</li><li>Asignar tareas y cursos de onboarding.</li><li>Programar reuniones con responsables y equipos.</li><li>Monitorear el avance y escalar dudas sensibles.</li></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul><li>Manual del empleado y políticas internas vigentes.</li><li>Manual de bienvenida.</li><li>Organigrama institucional.</li><li>Descripción del puesto.</li><li>Código de conducta.</li><li>Preguntas frecuentes.</li><li>Planes de onboarding por cargo.</li><li>Catálogo de cursos obligatorios.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul><li>Acceso controlado al sistema de Recursos Humanos.</li><li>Asignación de cursos y tareas.</li><li>Envío de correos electrónicos.</li><li>Integración con calendario.</li><li>Programación de reuniones.</li><li>Generación de listas de verificación.</li><li>Consulta del directorio corporativo.</li><li>Escalamiento hacia RR. HH., TI o el jefe directo.</li></ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box memory">
+              <h3>Short Term Memory</h3>
+              <ul><li>Conversación activa.</li><li>Preguntas realizadas por el empleado.</li><li>Tareas tratadas durante la sesión.</li><li>Documentos compartidos.</li><li>Solicitudes pendientes de confirmación.</li></ul>
+            </article>
+            <article class="box memory">
+              <h3>Long Term Memory</h3>
+              <ul><li>Progreso del empleado.</li><li>Tareas y cursos completados.</li><li>Reuniones realizadas.</li><li>Dudas frecuentes según área o puesto.</li><li>Preferencias de comunicación.</li><li>Retroalimentación del empleado.</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Semi-autónomo</h3>
+        <p>Puede responder consultas frecuentes y ejecutar tareas administrativas previamente autorizadas.</p>
+        <h4>Constreñimiento</h4>
+        <p>Debe escalar preguntas sobre remuneraciones, sanciones, conflictos laborales, salud, beneficios excepcionales, evaluaciones, datos personales sensibles o políticas ambiguas.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Medio (controlado)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul><li>Entrega de información interna desactualizada.</li><li>Asignación de accesos incorrectos.</li><li>Exposición de datos personales.</li><li>Respuestas inadecuadas sobre temas laborales sensibles.</li><li>Confusión entre políticas generales y condiciones particulares.</li><li>Persistencia innecesaria de conversaciones personales.</li></ul>
+          </article>
+          <article class="box">
+            <h3>Guardrails, Evals, LLMaaJ and Controls</h3>
+            <ul><li>Aplicar acceso basado en cargo, área y etapa de incorporación.</li><li>Mostrar únicamente información necesaria.</li><li>Exigir aprobación humana para accesos privilegiados.</li><li>Prohibir respuestas automáticas sobre sanciones, remuneraciones o conflictos.</li><li>Derivar temas sensibles a Recursos Humanos.</li><li>Limitar la retención de conversaciones personales.</li><li>Usar LLM-as-a-Judge para evaluar exactitud, tono, privacidad y correspondencia con políticas.</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    
+  </main>
+</body>
+</html>

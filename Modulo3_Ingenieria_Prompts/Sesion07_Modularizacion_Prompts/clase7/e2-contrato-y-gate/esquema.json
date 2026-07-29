@@ -1,0 +1,9 @@
+{
+  "faithful": true,
+  "missing_info": [],
+  "changes_of_meaning": [],
+  "confidence": 0.0,
+  "action": "approve",
+  "retries": 0,
+  "max_retries": 2
+}

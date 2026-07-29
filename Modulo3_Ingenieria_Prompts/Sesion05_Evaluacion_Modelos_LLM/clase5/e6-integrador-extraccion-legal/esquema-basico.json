@@ -1,0 +1,10 @@
+{
+  "empleador": { "razon_social": "", "ruc": "", "representante": "" },
+  "trabajadora": { "nombre": "", "dni": "", "domicilio": "" },
+  "cargo": "",
+  "fecha_inicio": "",
+  "fecha_fin": null,
+  "remuneracion": { "monto": 0, "moneda": "PEN" },
+  "duracion_meses": 0,
+  "beneficios": []
+}
