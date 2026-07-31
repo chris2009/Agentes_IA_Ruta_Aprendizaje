@@ -39,8 +39,8 @@ load_dotenv()
 random.seed(42)
 
 #AGENT_MODEL = os.environ.get("AGENT_MODEL", "llama3.2")
-AGENT_MODEL = os.environ.get("AGENT_MODEL", "phi4-mini")
-#AGENT_MODEL = os.environ.get("AGENT_MODEL", "gemma-lmstudio")
+#AGENT_MODEL = os.environ.get("AGENT_MODEL", "phi4-mini")
+AGENT_MODEL = os.environ.get("AGENT_MODEL", "gemma-lmstudio")
 
 
 def _resolver_modelo(nombre: str):

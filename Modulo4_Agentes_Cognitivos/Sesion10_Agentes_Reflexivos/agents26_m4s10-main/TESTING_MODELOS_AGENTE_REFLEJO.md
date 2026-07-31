@@ -85,6 +85,30 @@ Falla incluso peor que `llama3.2`: en ninguna de las 3 zonas invocó una tool re
 
 **0 de 3 zonas con alguna tool realmente invocada** — el peor resultado de los tres backends. Contradice la expectativa inicial de que `phi4-mini` sería más confiable que `llama3.2` para tool calling; en este pipeline concreto (Ollama + `langchain.agents.create_agent`) ocurrió lo contrario.
 
+### Diagnóstico de causa raíz (repetido en una segunda corrida)
+
+En una corrida posterior, `phi4-mini` volvió a fallar en `zona_B_refrigerados`, generando este contenido (visible en el trace de LangSmith) con `"tool_calls": []`:
+
+```
+sensor_temperatura{ "zona": "zona_B_refrigerados" }
+
+[{"name": "sensor_temperatura", "arguments": {"zona": "zona_B_refrigerados"}}]
+```
+
+Para descartar que el problema fuera falta de soporte de tools en el `Modelfile` de Ollama, se inspeccionó con `ollama show phi4-mini --modelfile`. El `TEMPLATE` sí define correctamente el protocolo de tool calling:
+
+```
+{{- if .Tools }}...<|tool|>{{ .Tools }}<|/tool|><|end|>{{- end }}
+...
+{{- if .ToolCalls }}<|tool_call|>[{"name":"...","arguments":...}]<|/tool_call|>{{- end }}
+```
+
+Es decir: Ollama sí inyecta las tools disponibles envueltas en `<|tool|>...<|/tool|>`, y sabe interpretar una respuesta como tool call real **solo si viene envuelta exactamente en** `<|tool_call|>[...]<|/tool_call|>`.
+
+Comparando con el texto generado arriba: el modelo produjo el **contenido correcto** (nombre de la tool y argumentos exactos), pero **sin los tokens especiales** `<|tool_call|>`/`<|/tool_call|>` que el parser de Ollama necesita para reconocerlo como una llamada real. Al faltar ese envoltorio, Ollama no puede distinguir "esto es una function call" de "el modelo está describiendo una function call en texto" — todo cae como `content` normal y `tool_calls` queda vacío.
+
+**Conclusión del diagnóstico:** no es un problema de integración/plantilla faltante (el `Modelfile` está bien armado), sino que **el modelo mismo no logra respetar de forma consistente su propio protocolo de salida** — probablemente por degradación de precisión en tokens especiales poco frecuentes debido a la cuantización (Q4). `llama3.2` usa un mecanismo de tool-calling equivalente pero lo respeta de forma consistente (al menos para la primera tool del flujo); `phi4-mini` en esta build no, ni siquiera una vez en 6 intentos totales (3 zonas × 2 corridas).
+
 ---
 
 ## Tabla comparativa final
