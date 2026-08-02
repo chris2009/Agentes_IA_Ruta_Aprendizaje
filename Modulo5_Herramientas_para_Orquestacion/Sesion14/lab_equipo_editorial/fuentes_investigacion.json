@@ -1,0 +1,50 @@
+[
+  {
+    "categoria": "automatizacion",
+    "dato": "Tareas rutinarias y repetitivas (procesamiento de datos, atencion al cliente basica, entrada de datos) son las mas expuestas a automatizacion por IA generativa, segun multiples estudios de McKinsey y Goldman Sachs publicados entre 2023 y 2025."
+  },
+  {
+    "categoria": "automatizacion",
+    "dato": "El consenso entre economistas laborales no es 'reemplazo total' sino 'transformacion de tareas': la mayoria de los empleos pierden un subconjunto de tareas automatizables, no el puesto completo."
+  },
+  {
+    "categoria": "creacion_empleo",
+    "dato": "El Foro Economico Mundial (Future of Jobs Report) proyecta creacion neta de nuevos roles ligados a IA: ingenieria de prompts, auditoria de modelos, gobernanza de datos y 'AI trainers' humanos que supervisan y corrigen modelos."
+  },
+  {
+    "categoria": "creacion_empleo",
+    "dato": "Sectores como ciberseguridad, salud asistida por IA y sostenibilidad muestran crecimiento de demanda laboral pese a la automatizacion, porque la IA amplia su alcance en vez de sustituirlos."
+  },
+  {
+    "categoria": "habilidades",
+    "dato": "Las habilidades mas demandadas ya no son solo tecnicas: pensamiento critico, alfabetizacion en IA (saber usar y supervisar herramientas de IA) y adaptabilidad aparecen consistentemente en el top de reportes de empleabilidad 2024-2026."
+  },
+  {
+    "categoria": "habilidades",
+    "dato": "El 'reskilling' (recapacitacion) corporativo se volvio prioridad: empresas grandes reportan presupuestos crecientes para entrenar a empleados actuales en el uso de copilotos de IA en vez de despedir y recontratar."
+  },
+  {
+    "categoria": "sectores_afectados",
+    "dato": "Los sectores mas impactados a corto plazo son atencion al cliente, marketing de contenidos, desarrollo de software junior y servicios legales de bajo nivel (revision de documentos)."
+  },
+  {
+    "categoria": "sectores_afectados",
+    "dato": "Trabajos que requieren manipulacion fisica en entornos no estructurados (construccion, plomeria, cuidado de personas) muestran menor exposicion a corto plazo por limitaciones actuales de la robotica."
+  },
+  {
+    "categoria": "politicas_publicas",
+    "dato": "Varios paises de la Union Europea y algunos estados de EE.UU. estan debatiendo marcos regulatorios que exigen transparencia cuando la IA participa en decisiones de contratacion o despido."
+  },
+  {
+    "categoria": "politicas_publicas",
+    "dato": "Sindicatos en sectores creativos (guionistas, actores de doblaje) han negociado clausulas especificas sobre uso de IA generativa en contratos colectivos desde 2023."
+  },
+  {
+    "categoria": "datos_estudios",
+    "dato": "Estudios longitudinales aun son escasos porque la adopcion masiva de IA generativa es reciente (desde 2022-2023); la mayoria de las proyecciones actuales son modelos economicos, no observaciones historicas confirmadas."
+  },
+  {
+    "categoria": "datos_estudios",
+    "dato": "Existe divergencia notable entre estudios: algunos proyectan perdida neta de empleos a 2030, otros proyectan ganancia neta; la diferencia suele depender de si el estudio asume adaptacion rapida o lenta de las empresas."
+  }
+]
