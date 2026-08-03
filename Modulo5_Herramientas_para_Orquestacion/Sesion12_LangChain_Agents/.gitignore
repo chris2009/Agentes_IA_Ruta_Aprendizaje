@@ -1,0 +1,13 @@
+.env
+venev
+
+# Reportes generados en tiempo de ejecución (Sesion12): son salida de los
+# programas, no deben subirse al repo.
+presupuestos_generados/
+planes_generados/
+__pycache__/
+
+# Credenciales OAuth de Google Calendar (Tarea_Agente_Personal_v2_ActividadesDiarias):
+# nunca deben subirse al repo.
+credentials.json
+token.json

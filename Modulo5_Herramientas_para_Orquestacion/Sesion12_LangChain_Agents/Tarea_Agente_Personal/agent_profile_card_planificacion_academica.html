@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agente Personal de Planificación Académica — Profile Card</title>
+  <style>
+    :root {
+      --ink: #111;
+      --border: #202020;
+      --communication: #dfe9df;
+      --context: #b7d9f0;
+      --environment: #b9e4e7;
+      --autonomy: #fff0c9;
+      --criticality: #f7cfd3;
+      --paper: #ffffff;
+      --page-bg: #f3f5f7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.35;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 24px));
+      margin: 30px auto 50px;
+    }
+
+    .agent-sheet {
+      background: var(--paper);
+      border: 2px solid var(--border);
+      margin: 0 auto;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+
+    .case-title {
+      padding: 22px 28px;
+      border-bottom: 2px solid var(--border);
+      background: #fff;
+      text-align: center;
+    }
+
+    .case-title h1 { margin: 7px 0 0; font-size: clamp(22px, 2.3vw, 34px); line-height: 1.2; }
+    .case-title .subtitle { margin: 8px auto 0; max-width: 900px; font-size: 14.5px; font-style: italic; color: #333; }
+
+    .case-number {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #111;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 999px;
+    }
+
+    .section { border-bottom: 2px solid var(--border); padding: 18px 18px 20px; }
+    .section:last-child { border-bottom: 0; }
+    .section > h2 { margin: 0 0 4px; text-align: center; font-size: clamp(21px, 2vw, 29px); line-height: 1.1; }
+    .section > h3 { margin: 0 0 10px; text-align: center; font-size: clamp(15px, 1.3vw, 20px); font-weight: 700; }
+    .section > p { margin: 5px auto; text-align: center; max-width: 1000px; font-size: 15px; }
+
+    .communication { background: var(--communication); padding-top: 20px; padding-bottom: 20px; }
+    .context { background: var(--context); }
+    .environment { background: var(--environment); }
+    .autonomy { background: var(--autonomy); }
+    .criticality { background: var(--criticality); }
+
+    .grid { display: grid; gap: 16px; align-items: stretch; margin-top: 14px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .environment-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .memory-stack { display: flex; flex-direction: column; gap: 16px; }
+
+    .box {
+      background: rgba(255,255,255,.94);
+      border: 2px solid var(--border);
+      border-radius: 26px;
+      padding: 14px 18px 16px;
+      min-width: 0;
+    }
+
+    .box h3 { text-align: center; margin: 0 0 8px; font-size: clamp(17px, 1.5vw, 22px); line-height: 1.05; }
+    .box p { margin: 6px 0; text-align: left; font-size: 14.5px; }
+    .box ul { margin: 6px 0 0; padding-left: 20px; }
+    .box li { margin: 5px 0; font-size: 14.5px; }
+
+    .rule-tag {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      margin-right: 6px;
+      letter-spacing: .02em;
+    }
+
+    .critical-grid .box { padding-left: 22px; padding-right: 22px; }
+
+    .agent-type-tag {
+      display: inline-block;
+      margin-top: 10px;
+      background: #111;
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: .02em;
+    }
+
+    @media (max-width: 1000px) {
+      .grid.two, .environment-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      main { width: 100%; margin: 0; }
+      .agent-sheet { box-shadow: none; margin: 0; }
+      .box { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="agent-sheet" id="planificacion-academica">
+      <div class="case-title">
+        <span class="case-number">Agentic System Profile Card</span>
+        <h1>Agente Personal de Planificación Académica</h1>
+        <p class="subtitle">Prioriza tareas académicas pendientes según fecha límite y prioridad, distribuye el tiempo disponible entre ellas, e inspecciona/consulta por palabra clave los documentos asociados a cada una.</p>
+        <span class="agent-type-tag">Goal-Based Agent</span>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>Conversacional</h3>
+        <p>Canal: consola / chat de texto (uso personal, un solo usuario).</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Gestión de tareas académicas pendientes (prioridad, fechas límite, estado) y consulta de los documentos asociados a cada una.</p>
+            <p><strong>Alcance:</strong> Registrar, consultar y actualizar tareas; calcular su urgencia; distribuir el tiempo disponible entre ellas; inspeccionar la carpeta autorizada de una tarea y buscar contenido relevante en sus documentos por palabra clave.</p>
+            <p><strong>Restricción clave:</strong> No accede a ninguna ruta fuera de la carpeta autorizada, no ejecuta archivos, no integra Google Calendar ni hace búsqueda semántica (RAG) en esta versión.</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul>
+              <li>Consultar y priorizar tareas pendientes según fecha límite y prioridad declarada.</li>
+              <li>Distribuir las tareas dentro de un bloque de tiempo disponible.</li>
+              <li>Inspeccionar la carpeta de materiales de una tarea y listar los documentos compatibles.</li>
+              <li>Buscar instrucciones, requisitos o conceptos dentro de esos documentos, por palabra clave.</li>
+              <li>Actualizar el estado de una tarea conforme el usuario avanza.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul>
+              <li>Tareas registradas en <code>tareas.json</code>: fecha límite, prioridad, duración estimada, estado.</li>
+              <li>Carpeta raíz autorizada y sus documentos (PDF, DOCX, TXT, Markdown, Python).</li>
+              <li>Consulta directa por palabra clave, sin RAG vectorial — el volumen de materiales por tarea es pequeño y no lo justifica en esta versión.</li>
+            </ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul>
+              <li><code>consultar_tareas</code> / <code>agregar_tarea</code> / <code>actualizar_estado</code> — gestión del archivo de tareas.</li>
+              <li><code>calcular_prioridad</code> / <code>generar_plan</code> — urgencia y distribución del tiempo.</li>
+              <li><code>inspeccionar_carpeta</code> / <code>buscar_en_documentos</code> — consulta de materiales, con validación de ruta.</li>
+            </ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box">
+              <h3>Short Term Memory</h3>
+              <p>Tarea o solicitud que se está resolviendo dentro de la sesión activa (última prioridad calculada, último plan generado).</p>
+            </article>
+            <article class="box">
+              <h3>Long Term Memory</h3>
+              <p><code>tareas.json</code> actúa como memoria persistente entre sesiones: historial de tareas, su estado y prioridad, reutilizado en cada invocación sin necesidad de un checkpointer.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Semi-autónomo</h3>
+        <p>Decide por su cuenta el orden de prioridad, el plan de tiempo y qué buscar en los documentos, sin pedir confirmación para esas lecturas.</p>
+        <p><strong>Limitaciones:</strong> no modifica ni crea eventos de calendario externo (Google Calendar queda para v2), no marca una tarea como completada por su cuenta — requiere que el usuario lo confirme vía <code>actualizar_estado</code> — y no accede ni escribe fuera de <code>tareas.json</code> y la carpeta autorizada.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Bajo-medio (uso personal, sin impacto en terceros)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul>
+              <li>Cálculo de prioridad incorrecto por una fecha o prioridad mal ingresada.</li>
+              <li>Pérdida o corrupción de <code>tareas.json</code> por escritura concurrente.</li>
+              <li>Contenido de un documento no detectado por fallo de extracción (p. ej. un PDF escaneado sin texto).</li>
+              <li>Una ruta fuera de la carpeta autorizada aceptada por error de validación.</li>
+            </ul>
+          </article>
+          <article class="box">
+            <h3>Reglas de Operación + Guardrails</h3>
+            <p><span class="rule-tag">REGLA</span>Cualquier ruta fuera de la <strong>carpeta autorizada</strong> se rechaza antes de leer nada.</p>
+            <p><span class="rule-tag">REGLA</span>Solo se procesan extensiones de la <strong>lista blanca</strong> (PDF, DOCX, TXT, MD, PY); ningún archivo se ejecuta.</p>
+            <p><span class="rule-tag">REGLA</span>El agente nunca inventa un puntaje de prioridad ni el contenido de un documento no consultado.</p>
+            <p><span class="rule-tag">REGLA</span><code>actualizar_estado</code> requiere confirmación explícita del usuario, nunca se marca automáticamente.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nombre": "Implementar agente personal ReAct",
+    "tipo": "academica",
+    "curso": "Implementación de agentes con IA",
+    "fecha_limite": "2026-08-02",
+    "duracion_estimada_minutos": 240,
+    "prioridad": "alta",
+    "estado": "pendiente",
+    "ruta_contexto": "materiales/TareaReAct",
+    "entregable": "Google Doc con objetivo y código"
+  },
+  {
+    "id": 2,
+    "nombre": "Preparar presentación de investigación",
+    "tipo": "academica",
+    "curso": "Metodología de la investigación",
+    "fecha_limite": "2026-08-10",
+    "duracion_estimada_minutos": 180,
+    "prioridad": "media",
+    "estado": "pendiente",
+    "ruta_contexto": "materiales/Investigacion",
+    "entregable": "Presentación en PowerPoint"
+  },
+  {
+    "id": 3,
+    "nombre": "Renovar DNI",
+    "tipo": "personal",
+    "curso": "",
+    "fecha_limite": "2026-08-15",
+    "duracion_estimada_minutos": 60,
+    "prioridad": "media",
+    "estado": "pendiente",
+    "ruta_contexto": "",
+    "entregable": ""
+  }
+]

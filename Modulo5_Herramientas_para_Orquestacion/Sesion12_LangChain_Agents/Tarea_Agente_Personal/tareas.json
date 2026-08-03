@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "nombre": "Implementar agente personal ReAct",
+    "curso": "Implementación de agentes con IA",
+    "fecha_limite": "2026-08-02",
+    "duracion_estimada_minutos": 240,
+    "prioridad": "alta",
+    "estado": "iniciada",
+    "ruta_contexto": "materiales/TareaReAct",
+    "entregable": "Google Doc con objetivo y código"
+  },
+  {
+    "id": 2,
+    "nombre": "Preparar presentación de investigación",
+    "curso": "Metodología de la investigación",
+    "fecha_limite": "2026-08-10",
+    "duracion_estimada_minutos": 180,
+    "prioridad": "media",
+    "estado": "pendiente",
+    "ruta_contexto": "materiales/Investigacion",
+    "entregable": "Presentación en PowerPoint"
+  },
+  {
+    "id": 3,
+    "nombre": "Entregar avance de tesis: revisión de literatura",
+    "curso": "Seminario de Tesis I",
+    "fecha_limite": "2026-08-09",
+    "duracion_estimada_minutos": 300,
+    "prioridad": "alta",
+    "estado": "pendiente",
+    "ruta_contexto": "",
+    "entregable": "Documento PDF con revisión de literatura"
+  },
+  {
+    "id": 4,
+    "nombre": "Resolver práctica de regresión y clasificación",
+    "curso": "Aprendizaje Automático",
+    "fecha_limite": "2026-08-06",
+    "duracion_estimada_minutos": 150,
+    "prioridad": "media",
+    "estado": "pendiente",
+    "ruta_contexto": "",
+    "entregable": "Notebook Jupyter con resultados"
+  },
+  {
+    "id": 5,
+    "nombre": "Preparar exposición sobre arquitecturas Transformer",
+    "curso": "Redes Neuronales Profundas",
+    "fecha_limite": "2026-08-12",
+    "duracion_estimada_minutos": 120,
+    "prioridad": "media",
+    "estado": "pendiente",
+    "ruta_contexto": "",
+    "entregable": "Presentación de 15 minutos"
+  }
+]

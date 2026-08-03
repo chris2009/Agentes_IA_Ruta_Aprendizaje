@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agente Personal de Planificación de Actividades Diarias — Profile Card (v2)</title>
+  <style>
+    :root {
+      --ink: #111;
+      --border: #202020;
+      --communication: #dfe9df;
+      --context: #b7d9f0;
+      --environment: #b9e4e7;
+      --autonomy: #fff0c9;
+      --criticality: #f7cfd3;
+      --paper: #ffffff;
+      --page-bg: #f3f5f7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.35;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 24px));
+      margin: 30px auto 50px;
+    }
+
+    .agent-sheet {
+      background: var(--paper);
+      border: 2px solid var(--border);
+      margin: 0 auto;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+
+    .case-title {
+      padding: 22px 28px;
+      border-bottom: 2px solid var(--border);
+      background: #fff;
+      text-align: center;
+    }
+
+    .case-title h1 { margin: 7px 0 0; font-size: clamp(22px, 2.3vw, 34px); line-height: 1.2; }
+    .case-title .subtitle { margin: 8px auto 0; max-width: 900px; font-size: 14.5px; font-style: italic; color: #333; }
+
+    .case-number {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #111;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 999px;
+    }
+
+    .section { border-bottom: 2px solid var(--border); padding: 18px 18px 20px; }
+    .section:last-child { border-bottom: 0; }
+    .section > h2 { margin: 0 0 4px; text-align: center; font-size: clamp(21px, 2vw, 29px); line-height: 1.1; }
+    .section > h3 { margin: 0 0 10px; text-align: center; font-size: clamp(15px, 1.3vw, 20px); font-weight: 700; }
+    .section > p { margin: 5px auto; text-align: center; max-width: 1000px; font-size: 15px; }
+
+    .communication { background: var(--communication); padding-top: 20px; padding-bottom: 20px; }
+    .context { background: var(--context); }
+    .environment { background: var(--environment); }
+    .autonomy { background: var(--autonomy); }
+    .criticality { background: var(--criticality); }
+
+    .grid { display: grid; gap: 16px; align-items: stretch; margin-top: 14px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .environment-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .memory-stack { display: flex; flex-direction: column; gap: 16px; }
+
+    .box {
+      background: rgba(255,255,255,.94);
+      border: 2px solid var(--border);
+      border-radius: 26px;
+      padding: 14px 18px 16px;
+      min-width: 0;
+    }
+
+    .box h3 { text-align: center; margin: 0 0 8px; font-size: clamp(17px, 1.5vw, 22px); line-height: 1.05; }
+    .box p { margin: 6px 0; text-align: left; font-size: 14.5px; }
+    .box ul { margin: 6px 0 0; padding-left: 20px; }
+    .box li { margin: 5px 0; font-size: 14.5px; }
+
+    .rule-tag {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      margin-right: 6px;
+      letter-spacing: .02em;
+    }
+
+    .critical-grid .box { padding-left: 22px; padding-right: 22px; }
+
+    .agent-type-tag {
+      display: inline-block;
+      margin-top: 10px;
+      background: #111;
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: .02em;
+    }
+
+    .readonly-tag {
+      display: inline-block;
+      margin-top: 8px;
+      margin-left: 8px;
+      background: #1f6f3e;
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: .02em;
+    }
+
+    @media (max-width: 1000px) {
+      .grid.two, .environment-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      main { width: 100%; margin: 0; }
+      .agent-sheet { box-shadow: none; margin: 0; }
+      .box { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="agent-sheet" id="planificacion-actividades-v2">
+      <div class="case-title">
+        <span class="case-number">Agentic System Profile Card</span>
+        <h1>Agente Personal de Planificación de Actividades Diarias</h1>
+        <p class="subtitle">Evolución de v1 (académico): combina actividades pendientes académicas y personales con los eventos ya agendados en Google Calendar, para proponer un plan de tiempo realista del día.</p>
+        <span class="agent-type-tag">Goal-Based Agent</span>
+        <span class="readonly-tag">Google Calendar: solo lectura</span>
+      </div>
+
+      <div class="section communication">
+        <h2>Communication Layer</h2>
+        <h3>Conversacional</h3>
+        <p>Canal: consola / chat de texto (uso personal, un solo usuario).</p>
+      </div>
+
+      <div class="section context">
+        <h2>Context Definition</h2>
+        <div class="grid two">
+          <article class="box">
+            <h3>Domain Definition</h3>
+            <p><strong>Dominio:</strong> Planificación de actividades diarias (académicas y personales) del usuario, consultando además su calendario real para conocer compromisos ya agendados.</p>
+            <p><strong>Alcance:</strong> Registrar, consultar y actualizar actividades; calcular su urgencia; leer eventos de Google Calendar de un día; distribuir actividades pendientes en los huecos libres reales entre esos eventos; inspeccionar y buscar en documentos asociados por palabra clave.</p>
+            <p><strong>Restricción clave:</strong> El calendario es de <strong>solo lectura</strong> — nunca crea, modifica ni borra un evento. No accede a rutas fuera de la carpeta autorizada, no ejecuta archivos, no hace búsqueda semántica (RAG).</p>
+          </article>
+          <article class="box">
+            <h3>Objectives Definition</h3>
+            <ul>
+              <li>Consultar y priorizar actividades pendientes (académicas y personales) según fecha límite y prioridad.</li>
+              <li>Consultar Google Calendar para conocer reuniones, cursos y citas ya agendados en un día.</li>
+              <li>Calcular los huecos libres reales del día y distribuir ahí las actividades pendientes, sin chocar con eventos existentes.</li>
+              <li>Inspeccionar y buscar por palabra clave en los documentos asociados a una actividad.</li>
+              <li>Actualizar el estado de una actividad conforme el usuario avanza.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section environment">
+        <h2>Environment Definition</h2>
+        <div class="grid environment-grid">
+          <article class="box">
+            <h3>Knowledge</h3>
+            <ul>
+              <li>Actividades registradas en <code>actividades.json</code>: tipo (académica/personal), fecha límite, duración, prioridad, estado.</li>
+              <li>Eventos del Google Calendar real del usuario (calendario <code>primary</code>), leídos en vivo vía API — nunca cacheados como verdad permanente.</li>
+              <li>Carpeta raíz autorizada y sus documentos (PDF, DOCX, TXT, Markdown, Python), consulta directa por palabra clave, sin RAG vectorial.</li>
+            </ul>
+          </article>
+          <article class="box">
+            <h3>Tools</h3>
+            <ul>
+              <li><code>consultar_actividades</code> / <code>agregar_actividad</code> / <code>actualizar_estado</code> — gestión del archivo de actividades.</li>
+              <li><code>calcular_prioridad</code> — urgencia por actividad.</li>
+              <li><code>consultar_calendario</code> (solo lectura) / <code>generar_plan</code> — huecos libres reales y línea de tiempo del día.</li>
+              <li><code>inspeccionar_carpeta</code> / <code>buscar_en_documentos</code> — consulta de materiales, con validación de ruta.</li>
+            </ul>
+          </article>
+          <div class="memory-stack">
+            <article class="box">
+              <h3>Short Term Memory</h3>
+              <p>Actividad o rango horario que se está resolviendo dentro de la sesión activa (último plan generado, últimos eventos consultados).</p>
+            </article>
+            <article class="box">
+              <h3>Long Term Memory</h3>
+              <p><code>actividades.json</code> persiste entre sesiones (historial de actividades, estado, prioridad); Google Calendar es la fuente de verdad externa de eventos ya agendados, siempre consultada en vivo, nunca duplicada localmente.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="section autonomy">
+        <h2>Autonomy Dimension Definition</h2>
+        <h3>Semi-autónomo</h3>
+        <p>Decide por su cuenta el orden de prioridad, qué huecos usar del calendario y qué buscar en los documentos, sin pedir confirmación para esas lecturas.</p>
+        <p><strong>Limitaciones:</strong> nunca crea, modifica ni borra eventos de Google Calendar (solo lectura, sin excepción); no marca una actividad como completada por su cuenta — requiere confirmación explícita del usuario vía <code>actualizar_estado</code>; no accede ni escribe fuera de <code>actividades.json</code> y la carpeta autorizada.</p>
+      </div>
+
+      <div class="section criticality">
+        <h2>Criticality Dimension Definition</h2>
+        <h3>Nivel de criticidad: Bajo-medio (uso personal, sin impacto en terceros; el calendario real nunca se modifica)</h3>
+        <div class="grid two critical-grid">
+          <article class="box">
+            <h3>Risk</h3>
+            <ul>
+              <li>Cálculo de prioridad incorrecto por una fecha o prioridad mal ingresada.</li>
+              <li>Lectura incorrecta de disponibilidad si el calendario tiene eventos de todo el día o de husos horarios distintos al del usuario.</li>
+              <li>Token OAuth expirado (app en modo Testing) impide leer el calendario hasta reautenticar.</li>
+              <li>Pérdida o corrupción de <code>actividades.json</code> por escritura concurrente.</li>
+            </ul>
+          </article>
+          <article class="box">
+            <h3>Reglas de Operación + Guardrails</h3>
+            <p><span class="rule-tag">REGLA</span>Google Calendar se consulta con scope <strong>calendar.readonly</strong> — nunca se solicita permiso de escritura.</p>
+            <p><span class="rule-tag">REGLA</span>Cualquier ruta fuera de la <strong>carpeta autorizada</strong> se rechaza antes de leer nada.</p>
+            <p><span class="rule-tag">REGLA</span>El agente nunca inventa un horario, un evento de calendario ni el contenido de un documento no consultado.</p>
+            <p><span class="rule-tag">REGLA</span><code>actualizar_estado</code> requiere confirmación explícita del usuario, nunca se marca automáticamente.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
