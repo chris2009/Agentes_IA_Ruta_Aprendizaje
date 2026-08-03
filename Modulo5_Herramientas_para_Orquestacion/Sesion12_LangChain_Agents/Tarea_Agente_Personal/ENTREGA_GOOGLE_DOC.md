@@ -1,3 +1,91 @@
+# Agente Personal ReAct de Planificación Académica
+
+## Objetivo
+
+Implementar un agente personal basado en el patrón **ReAct** (*Reasoning
+and Acting*) que priorice actividades académicas pendientes y consulte
+los documentos asociados a cada una para apoyar su desarrollo, usando
+LangChain.
+
+## Necesidad personal
+
+Durante el desarrollo de cursos, trabajos y proyectos se acumulan
+actividades con distintas fechas límite y niveles de importancia.
+Decidir a mano cuál atender primero, y encontrar dentro de qué documento
+está un requisito puntual, consume tiempo que preferiría dedicar a
+resolver la tarea en sí. El agente ayuda a decidir qué actividad hacer
+primero, cómo distribuir el tiempo disponible entre las tareas
+pendientes, y qué dicen los materiales de una tarea sin tener que abrir
+cada archivo manualmente.
+
+## Cómo funciona — dónde vive cada cosa
+
+El agente se construye con `create_agent` de LangChain y ocho
+herramientas. Antes de leer el código completo, esto orienta qué hace
+cada pieza y dónde queda guardada:
+
+| Qué | Dónde | Cómo se genera/actualiza |
+|---|---|---|
+| **Tareas registradas** | `tareas.json`, junto al script | Se cargan al inicio de cada operación y se reescriben con `agregar_tarea` (nueva tarea) o `actualizar_estado` (cambio de estado). No hay base de datos: es un archivo de texto plano, legible directamente. |
+| **Materiales de consulta** | `materiales/<carpeta de la tarea>/` | Carpeta fija por tarea (campo `ruta_contexto` en `tareas.json`). El agente solo puede leer dentro de esta raíz — cualquier otra ruta se rechaza. |
+| **Reportes de plan** | `planes_generados/` | Se generan de **dos formas distintas**, según lo que pida el usuario (ver abajo). |
+
+**Los dos caminos para generar un reporte en `planes_generados/`:**
+
+1. **`generar_plan(minutos_disponibles)`** — calcula desde cero, a partir
+   de `tareas.json`, qué tareas caben en el tiempo disponible (ordenadas
+   por un puntaje de urgencia: prioridad declarada + cercanía de la
+   fecha límite) y guarda esa tabla como `PLAN-<fecha>.md`. Es un cálculo
+   determinista, no una redacción libre del modelo.
+2. **`guardar_plan_detallado(tarea_id, titulo, contenido)`** — guarda tal
+   cual un texto que el agente ya redactó en la conversación (por
+   ejemplo, un desglose paso a paso para completar una tarea puntual),
+   como `PLAN-DETALLADO-<fecha>.md`. Existe como herramienta aparte
+   porque `generar_plan` no puede persistir texto libre: solo sabe
+   recalcular su propia tabla.
+
+Ninguna de las dos se usa "porque sí": el *system prompt* del agente
+(ver sección de código) indica explícitamente cuándo usar cada una, para
+que el modelo no termine afirmando que guardó algo sin haber llamado a
+ninguna herramienta real.
+
+## Arquitectura — herramientas del agente
+
+| Herramienta | Función |
+|---|---|
+| `consultar_tareas` | Lista las tareas registradas y su estado. |
+| `agregar_tarea` | Registra una tarea nueva. |
+| `calcular_prioridad` | Calcula el puntaje de urgencia de una tarea. |
+| `generar_plan` | Arma y guarda el plan calculado desde `tareas.json`. |
+| `actualizar_estado` | Cambia el estado de una tarea (pendiente/iniciada/completada). |
+| `guardar_plan_detallado` | Guarda un plan de texto libre ya redactado en el chat. |
+| `inspeccionar_carpeta` | Lista los documentos disponibles de una tarea. |
+| `buscar_en_documentos` | Busca una consulta por palabra clave dentro de esos documentos (sin RAG ni embeddings). |
+
+El modelo (Claude vía Anthropic, o Gemma 4 E4B vía LM Studio local,
+intercambiable con una variable de entorno) decide en cada turno cuál de
+estas herramientas invocar y en qué orden — ese ciclo de decisión →
+acción → observación → siguiente decisión es el patrón ReAct aplicado.
+
+## Ejemplo de uso
+
+```
+Tú: Tengo cuatro horas disponibles. Revisa mis tareas pendientes,
+    dime cuál es más urgente y busca en sus materiales cuáles son
+    los requisitos de entrega.
+
+Acción: consultar_tareas          → 5 tareas pendientes
+Acción: calcular_prioridad (c/u)  → "Implementar agente ReAct" es la más urgente
+Acción: generar_plan(240)         → tabla guardada en planes_generados/
+Acción: inspeccionar_carpeta      → 1 archivo encontrado (instrucciones.txt)
+Acción: buscar_en_documentos      → línea con el entregable encontrada
+
+Respuesta final: tarea priorizada, plan de tiempo y requisitos de entrega.
+```
+
+## Código completo
+
+```python
 """
 Agente personal de planificacion academica, construido con LangChain
 (create_agent) siguiendo el patron ReAct: prioriza tareas pendientes
@@ -412,3 +500,13 @@ if __name__ == "__main__":
             "AGENT_MODEL=gemma-lmstudio para no depender de la API de pago."
         )
     iniciar_chat()
+```
+
+## Declaración de transparencia de IA
+
+Este documento y el código que describe fueron elaborados con asistencia de un asistente de IA (Claude Code, Anthropic), bajo dirección explícita del estudiante en cada decisión:
+
+- **Definición del alcance:** la necesidad personal, los objetivos y las decisiones de qué incluir (sin RAG, sin integraciones externas) fueron decisiones del estudiante, no sugerencias del asistente.
+- **Generación de código:** el asistente redactó el código de las herramientas, el *system prompt* y esta documentación, a partir de esos requisitos.
+- **Verificación y corrección por el estudiante:** el código no se aceptó sin probarlo. Durante las pruebas, el estudiante detectó fallas reales que el asistente tuvo que corregir — por ejemplo, `inspeccionar_carpeta` obligaba al modelo a adivinar una ruta de carpeta (fallaba en la práctica) hasta que se rediseñó para resolverla internamente por id de tarea; y no existía ninguna herramienta capaz de guardar en disco un plan detallado ya redactado en el chat, lo que llevó al modelo a afirmar falsamente que había guardado un archivo — corregido agregando `guardar_plan_detallado`.
+- **Pruebas reales:** el agente se ejecutó con un backend real (Claude Sonnet vía API de Anthropic, y también con Gemma 4 E4B vía LM Studio local) contra tareas y materiales de ejemplo, no solo revisado como texto.

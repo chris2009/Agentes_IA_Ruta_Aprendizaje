@@ -544,7 +544,12 @@ El volumen de materiales por tarea es pequeño (unos pocos documentos por carpet
 
 ## 17. Declaración de transparencia de IA
 
-Este documento y el código que describe fueron elaborados con asistencia de un asistente de IA (Claude Code), a partir de la necesidad personal, los objetivos y las decisiones de alcance definidos por el estudiante (qué va en v1 y qué se difiere a v2, por qué no usar RAG todavía, por qué excluir Google Calendar de esta versión). El asistente ayudó a redactar el detalle técnico, el código de las herramientas y esta especificación.
+Este documento y el código que describe fueron elaborados con asistencia de un asistente de IA (Claude Code, Anthropic), bajo dirección explícita del estudiante en cada decisión:
+
+- **Definición del alcance:** la necesidad personal, los objetivos y las decisiones de qué va en esta versión (sin RAG, sin Google Calendar — ver Secciones 15-16) fueron decisiones del estudiante, no sugerencias del asistente.
+- **Generación de código:** el asistente redactó el código de las tools, el `system_prompt` y esta especificación, a partir de esos requisitos.
+- **Verificación y corrección por el estudiante:** el código no se aceptó "a ciegas". Durante las pruebas, el estudiante detectó y reportó fallas reales que el asistente tuvo que corregir, por ejemplo: `inspeccionar_carpeta` obligaba al modelo a adivinar una ruta de carpeta (falló en la práctica) hasta que se rediseñó para resolverla internamente por `tarea_id`; y no existía ninguna herramienta capaz de guardar en disco un plan detallado ya redactado en el chat (`generar_plan` solo recalculaba su propia tabla), lo que llevó al modelo local a afirmar falsamente que había guardado un archivo — corregido agregando `guardar_plan_detallado`.
+- **Pruebas reales:** cada versión del agente se ejecutó con un backend real (Claude Sonnet vía API de Anthropic, y Gemma 4 E4B vía LM Studio local) contra tareas y materiales de ejemplo, no solo revisado como texto.
 
 ---
 
