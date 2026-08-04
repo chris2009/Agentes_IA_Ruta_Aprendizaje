@@ -1,0 +1,14 @@
+Instrucciones - Tarea Agente ReAct Personal
+
+Objetivo: implementar un agente personal usando el patron ReAct con LangChain.
+
+Requisitos de entrega:
+- Entregable: Google Doc con objetivo y codigo.
+- Debe usar create_agent de LangChain.
+- Debe incluir al menos una herramienta (tool) real, no simulada.
+
+Conceptos clave del patron ReAct: el modelo razona (thought), decide una
+accion (action) invocando una herramienta, observa el resultado
+(observation), y repite el ciclo hasta dar la respuesta final.
+
+Fecha limite: revisar la diapositiva de la tarea para la fecha exacta.

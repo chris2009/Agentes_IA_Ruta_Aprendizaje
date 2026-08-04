@@ -1,0 +1,17 @@
+# Base del agente (igual que Tarea_Agente_Personal, Sesion 12)
+langchain
+langchain-anthropic
+langchain-openai
+python-dotenv
+python-docx
+pypdf
+
+# RAG (Sesion 13): Chroma + embeddings via Ollama local
+langchain-chroma
+chromadb
+langchain-text-splitters
+langchain-ollama
+pydantic-settings
+
+# Busqueda web de respaldo
+tavily-python

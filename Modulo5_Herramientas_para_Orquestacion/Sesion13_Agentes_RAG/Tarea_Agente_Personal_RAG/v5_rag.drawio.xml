@@ -1,0 +1,95 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Arquitectura RAG (v5)" id="diag_v5_rag">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="usuario" value="Usuario (consola)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="480" y="40" width="220" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="agente" value="Agente ReAct (create_agent)&#10;response_format=RespuestaAgente" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="420" y="150" width="340" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="llm" value="LLM backend&#10;(Anthropic Claude / LM Studio Gemma)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="820" y="150" width="280" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tools_gestion" value="Tools de gestion de tareas&#10;consultar_tareas, agregar_tarea,&#10;calcular_prioridad, generar_plan,&#10;actualizar_estado, guardar_plan_detallado,&#10;inspeccionar_carpeta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="360" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tool_rag" value="buscar_en_documentos&#10;(RAG real con Chroma)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="440" y="290" width="280" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tool_web" value="buscar_en_la_web&#10;(Tavily, respaldo)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="760" y="290" width="280" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tareas_json" value="tareas.json" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="450" width="170" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="materiales" value="materiales/&#10;(PDF, DOCX, TXT, MD, PY)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="230" y="450" width="170" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rag_modulo" value="rag.py&#10;construir_o_cargar_indice() / buscar()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="440" y="450" width="280" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="chroma" value="Chroma (chroma_index/)&#10;vector store persistente" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="440" y="580" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ollama" value="Ollama local&#10;(embeddings: nomic-embed-text)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="440" y="690" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tavily" value="Tavily API&#10;(busqueda web)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="800" y="450" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="usuario" target="agente">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="invoca / respuesta estructurada" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="tools_gestion">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="tool_rag">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="respaldo si RAG no encuentra" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="tool_web">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tools_gestion" target="tareas_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="inspeccionar_carpeta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tools_gestion" target="materiales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="similarity_search()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_rag" target="rag_modulo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="indexado offline&#10;(--reindexar)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="materiales" target="rag_modulo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="rag_modulo" target="chroma">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="embeddings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="chroma" target="ollama">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_web" target="tavily">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

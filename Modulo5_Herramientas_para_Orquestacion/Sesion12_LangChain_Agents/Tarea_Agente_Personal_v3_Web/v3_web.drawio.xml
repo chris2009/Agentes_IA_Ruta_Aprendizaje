@@ -1,0 +1,231 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Arquitectura v3 Web" id="diagv3">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1550" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== Capa 1: Frontend (React / Vite) ===== -->
+        <mxCell id="fe_componentes" value="Componentes UI&#10;(NavBar, Footer, ActivityTable, PlanCard,&#10;FileBrowser, ChatBubble, Banner, Spinner, UrgencyBadge)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_paginas" value="Paginas (Dashboard, Actividades, Nueva Actividad,&#10;Calendario, Planes, Materiales, Chat)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="420" y="40" width="420" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_apiclient" value="api/client.js&#10;(fetch -&gt; /api/*)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="880" y="40" width="260" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Capa 2: Backend FastAPI ===== -->
+        <mxCell id="be_main" value="FastAPI main.py&#10;(CORS, lifespan, include_router x6)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="630" y="160" width="340" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rt_health" value="router health&#10;GET /api/health" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="260" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rt_activities" value="router activities&#10;GET/POST /api/activities&#10;PATCH /api/activities/{id}/estado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="260" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rt_calendar" value="router calendar&#10;GET/POST /api/calendar/events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="440" y="260" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rt_plans" value="router plans&#10;POST /generate, GET '',&#10;GET /{f}, GET /{f}/download" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="640" y="260" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rt_files" value="router files&#10;GET /api/files/browse" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="840" y="260" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rt_chat" value="router chat&#10;POST /api/chat" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="260" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Capa 3: Agente v2 (importado via sys.path) ===== -->
+        <mxCell id="ag_agent" value="v2mod.agent&#10;(create_agent - LangChain)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="630" y="380" width="340" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tool_consultar_actividades" value="consultar_actividades" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_agregar_actividad" value="agregar_actividad" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="200" y="480" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_calcular_prioridad" value="calcular_prioridad" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="360" y="480" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_actualizar_estado" value="actualizar_estado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="520" y="480" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_consultar_calendario" value="consultar_calendario" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="680" y="480" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_agendar_actividad" value="agendar_actividad" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="840" y="480" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_generar_plan" value="generar_plan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="480" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_inspeccionar_carpeta" value="inspeccionar_carpeta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="480" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_buscar_en_documentos" value="buscar_en_documentos&#10;(busqueda literal, sin RAG)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="480" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Capa 4: Almacenamiento / servicios externos ===== -->
+        <mxCell id="st_actividades_json" value="actividades.json&#10;(via _cargar_actividades)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="100" y="620" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="st_materiales" value="materiales/&#10;(CARPETA_AUTORIZADA)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="620" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="st_planes_generados" value="planes_generados/&#10;(CARPETA_PLANES, archivos .md)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="620" y="620" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="st_google_calendar" value="Google Calendar API&#10;(credentials.json / token.json)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="880" y="620" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="st_llm_backend" value="LLM backend&#10;(Anthropic API / LM Studio)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="620" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Edges: Frontend interno ===== -->
+        <mxCell id="e_fe1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="fe_paginas" target="fe_componentes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fe2" value="llama funciones" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="fe_paginas" target="fe_apiclient">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fe3" value="fetch /api/*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="fe_apiclient" target="be_main">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Edges: main.py -> routers ===== -->
+        <mxCell id="e_be_h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="be_main" target="rt_health">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_be_a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="be_main" target="rt_activities">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_be_c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="be_main" target="rt_calendar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_be_p" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="be_main" target="rt_plans">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_be_f" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="be_main" target="rt_files">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_be_ch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="be_main" target="rt_chat">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Edges: routers -> tools / lecturas directas ===== -->
+        <mxCell id="e_rt_act_1" value=".invoke()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="rt_activities" target="tool_agregar_actividad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rt_act_2" value=".invoke()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="rt_activities" target="tool_actualizar_estado">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rt_act_3" value="lectura directa&#10;_cargar_actividades / _puntaje_urgencia" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="rt_activities" target="st_actividades_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_rt_cal_1" value=".invoke()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="rt_calendar" target="tool_agendar_actividad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rt_cal_2" value="lectura directa&#10;_obtener_eventos_dia" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="rt_calendar" target="st_google_calendar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_rt_plan_1" value=".invoke()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="rt_plans" target="tool_generar_plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rt_plan_2" value="lectura directa&#10;(listar / leer / descargar .md)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="rt_plans" target="st_planes_generados">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_rt_files_1" value="lectura directa&#10;CARPETA_AUTORIZADA.iterdir()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="rt_files" target="st_materiales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_rt_chat_1" value=".ainvoke()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="rt_chat" target="ag_agent">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_rt_health_1" value="chequea existencia" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="rt_health" target="st_google_calendar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Edges: agente -> tools (todas disponibles al LLM) ===== -->
+        <mxCell id="e_ag_t1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_consultar_actividades">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_t2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_agregar_actividad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_t3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_calcular_prioridad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_t4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_actualizar_estado">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_t5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_consultar_calendario">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_t6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_agendar_actividad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_t7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_generar_plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_t8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_inspeccionar_carpeta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_t9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="tool_buscar_en_documentos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ag_llm" value="resolver_modelo()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="ag_agent" target="st_llm_backend">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Edges: tools -> almacenamiento ===== -->
+        <mxCell id="e_t_s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_consultar_actividades" target="st_actividades_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_agregar_actividad" target="st_actividades_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_calcular_prioridad" target="st_actividades_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_actualizar_estado" target="st_actividades_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_consultar_calendario" target="st_google_calendar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_agendar_actividad" target="st_google_calendar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_generar_plan" target="st_actividades_json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_generar_plan" target="st_google_calendar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_generar_plan" target="st_planes_generados">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_inspeccionar_carpeta" target="st_materiales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t_s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="tool_buscar_en_documentos" target="st_materiales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

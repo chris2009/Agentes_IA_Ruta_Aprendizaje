@@ -8,8 +8,9 @@ pendientes (academicas y personales, en actividades.json) con los eventos
 ya agendados en Google Calendar (reuniones, cursos, citas) para armar el
 plan del dia respetando el tiempo real ya comprometido.
 
-Google Calendar en modo SOLO LECTURA (scope calendar.readonly): el agente
-nunca crea, modifica ni borra eventos. Requiere credentials.json (ver
+Google Calendar (scope calendar.events): el agente lee los eventos
+existentes y puede crear eventos nuevos via agendar_actividad, pero nunca
+modifica ni borra un evento que ya existia. Requiere credentials.json (ver
 CONFIGURAR_GOOGLE_CALENDAR.md, en esta misma carpeta) y, en la primera
 ejecucion, un login interactivo en el navegador que genera token.json.
 
@@ -55,8 +56,11 @@ EXTENSIONES_ADMITIDAS = {".pdf", ".docx", ".txt", ".md", ".py"}
 
 PESO_PRIORIDAD = {"alta": 3, "media": 2, "baja": 1}
 
-# Google Calendar: solo lectura, nunca se pide permiso de escritura.
-GOOGLE_SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
+# Google Calendar: scope calendar.events (leer + crear/editar/borrar
+# EVENTOS unicamente; sin acceso a la lista de calendarios ni su config).
+# El agente solo usa esto para leer eventos y crear uno nuevo via
+# agendar_actividad — nunca para editar o borrar un evento existente.
+GOOGLE_SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 RUTA_CREDENCIALES = Path(__file__).parent / os.getenv("GOOGLE_CALENDAR_CREDENTIALS", "credentials.json")
 RUTA_TOKEN = Path(__file__).parent / os.getenv("GOOGLE_CALENDAR_TOKEN", "token.json")
 
@@ -212,6 +216,50 @@ def _calcular_huecos_libres(hora_inicio: str, hora_fin: str, eventos: list[dict]
         huecos.append((cursor, fin_min))
 
     return [(a, b) for a, b in huecos if b > a]
+
+
+def _crear_evento(fecha: str, hora_inicio: str, hora_fin: str, resumen: str, descripcion: str) -> dict:
+    """Crea un evento nuevo en el calendario primario. No toca eventos existentes."""
+
+    fecha_obj = date.fromisoformat(fecha) if fecha else date.today()
+    zona = datetime.now().astimezone().tzinfo
+    inicio = datetime.combine(fecha_obj, datetime.strptime(hora_inicio, "%H:%M").time(), tzinfo=zona)
+    fin = datetime.combine(fecha_obj, datetime.strptime(hora_fin, "%H:%M").time(), tzinfo=zona)
+
+    servicio = _obtener_servicio_calendario()
+    return servicio.events().insert(
+        calendarId="primary",
+        body={
+            "summary": resumen,
+            "description": descripcion,
+            "start": {"dateTime": inicio.isoformat()},
+            "end": {"dateTime": fin.isoformat()},
+        },
+    ).execute()
+
+
+@tool
+def agendar_actividad(fecha: str, hora_inicio: str, hora_fin: str, resumen: str, descripcion: str = "") -> str:
+    """
+    Crea un evento NUEVO en Google Calendar (fecha YYYY-MM-DD, vacio = hoy;
+    horas HH:MM). Esta es la UNICA accion de escritura permitida: nunca
+    edites ni borres un evento que ya exista, solo agrega uno nuevo.
+    Antes de llamarla, confirma con el usuario fecha, hora y resumen, y
+    usa consultar_calendario primero para evitar agendar sobre un bloque
+    ya ocupado.
+    """
+
+    try:
+        evento = _crear_evento(fecha, hora_inicio, hora_fin, resumen, descripcion)
+    except FileNotFoundError as error:
+        return str(error)
+    except Exception as error:
+        return f"No se pudo agendar el evento en Google Calendar: {error}"
+
+    return (
+        f"Evento '{resumen}' agendado el {fecha or 'hoy'} de {hora_inicio} a {hora_fin}. "
+        f"Ver en Google Calendar: {evento.get('htmlLink', '(sin enlace)')}"
+    )
 
 
 @tool
@@ -576,12 +624,17 @@ Flujo recomendado:
    usa inspeccionar_carpeta y buscar_en_documentos.
 6. Usa actualizar_estado cuando el usuario indique que empezo o termino
    una actividad, y agregar_actividad cuando mencione una nueva.
+7. Si el usuario pide agendar algo en su calendario (una reunion, una
+   actividad, un bloque de tiempo), confirma fecha/hora/resumen y usa
+   agendar_actividad. Revisa antes con consultar_calendario que ese
+   horario este libre.
 
 Reglas:
 - Solo puedes inspeccionar o buscar dentro de carpetas dentro de la
   carpeta autorizada; si el usuario pide otra ruta, rechazala.
-- El calendario es de SOLO LECTURA: nunca ofrezcas crear, modificar ni
-  borrar eventos.
+- Sobre el calendario, la UNICA accion de escritura permitida es crear un
+  evento nuevo con agendar_actividad. Nunca ofrezcas editar ni borrar un
+  evento que ya exista.
 - Se breve y concreto: prioridad, plan de tiempo y proximos pasos.
 """
 
@@ -612,7 +665,7 @@ agent = create_agent(
     system_prompt=PROMPT_SISTEMA,
     tools=[
         consultar_actividades, agregar_actividad, calcular_prioridad, actualizar_estado,
-        consultar_calendario, generar_plan,
+        consultar_calendario, agendar_actividad, generar_plan,
         inspeccionar_carpeta, buscar_en_documentos,
     ],
 )
