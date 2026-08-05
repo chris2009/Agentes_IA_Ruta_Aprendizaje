@@ -1,172 +1,387 @@
 <mxfile host="app.diagrams.net">
-  <diagram name="V2 - Actividades Diarias + Google Calendar" id="diagv2">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1150" math="0" shadow="0">
+  <diagram name="V2 - Tarea_Agente_Personal_v2_ActividadesDiarias" id="diagv2">
+    <mxGraphModel dx="1201" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1550" pageHeight="1000" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <!-- Capa 1: entrada -->
-        <mxCell id="usuario" value="Usuario (consola CLI)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="700" y="30" width="220" height="50" as="geometry" />
+        <mxCell id="titulo" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;" value="Arquitectura del Agente — Tarea_Agente_Personal_v2_ActividadesDiarias (Sesion 12)" vertex="1">
+          <mxGeometry height="30" width="1000" x="40" y="0" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitulo" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=2;fontColor=#666666;" value="v1 + integracion real con Google Calendar (scope calendar.events: solo lee y CREA eventos, nunca edita/borra)" vertex="1">
+          <mxGeometry height="20" width="1000" x="40" y="26" as="geometry" />
         </mxCell>
 
-        <!-- Capa 2: agente + modelo -->
-        <mxCell id="loopchat" value="iniciar_chat()&#10;loop input / historial / invoke" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="670" y="120" width="280" height="60" as="geometry" />
+        <!-- Entrada -->
+        <mxCell id="usuario" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="&#128100; Usuario (consola CLI)" vertex="1">
+          <mxGeometry height="50" width="240" x="485" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="loopchat" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="&#128257; iniciar_chat()&#xa;loop input / historial / invoke" vertex="1">
+          <mxGeometry height="60" width="300" x="455" y="135" as="geometry" />
         </mxCell>
 
-        <mxCell id="agente" value="Agente ReAct&#10;create_agent (LangChain)&#10;PROMPT_SISTEMA (v2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="670" y="220" width="280" height="70" as="geometry" />
+        <!-- Agente + LLM -->
+        <mxCell id="agente" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="&#129302; Agente ReAct&#xa;create_agent (LangChain)&#xa;PROMPT_SISTEMA" vertex="1">
+          <mxGeometry height="70" width="280" x="350" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="modelo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="&#9729; Backend LLM (resolver_modelo)&#xa;AGENT_MODEL=anthropic -&gt; Claude API&#xa;AGENT_MODEL=gemma-lmstudio -&gt; LM Studio local" vertex="1">
+          <mxGeometry height="70" width="320" x="660" y="225" as="geometry" />
         </mxCell>
 
-        <mxCell id="modelo" value="Backend LLM (resolver_modelo)&#10;AGENT_MODEL=anthropic -&gt; Claude API&#10;AGENT_MODEL=gemma-lmstudio -&gt; LM Studio local" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="1040" y="220" width="300" height="70" as="geometry" />
+        <!-- Header Tools -->
+        <mxCell id="hdr_tools" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#8a6d00;" value="&#128295; TOOLS (9) — funciones @tool, las UNICAS que el LLM puede invocar directamente" vertex="1">
+          <mxGeometry height="24" width="900" x="40" y="335" as="geometry" />
         </mxCell>
 
-        <!-- Capa 3a: tools heredadas de v1 (compactas) -->
-        <mxCell id="t_consultar" value="consultar_actividades" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="20" y="340" width="150" height="50" as="geometry" />
+        <!-- Tools grid 3x3 -->
+        <mxCell id="t_consultar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; consultar_actividades" vertex="1">
+          <mxGeometry height="55" width="355" x="40" y="365" as="geometry" />
         </mxCell>
-        <mxCell id="t_agregar" value="agregar_actividad" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="190" y="340" width="150" height="50" as="geometry" />
+        <mxCell id="t_agregar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; agregar_actividad" vertex="1">
+          <mxGeometry height="55" width="355" x="425" y="365" as="geometry" />
         </mxCell>
-        <mxCell id="t_prioridad" value="calcular_prioridad" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="360" y="340" width="150" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="t_estado" value="actualizar_estado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="530" y="340" width="150" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="t_inspeccionar" value="inspeccionar_carpeta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="700" y="340" width="150" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="t_buscar" value="buscar_en_documentos&#10;(literal, sin RAG)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="870" y="340" width="170" height="50" as="geometry" />
+        <mxCell id="t_prioridad" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; calcular_prioridad" vertex="1">
+          <mxGeometry height="55" width="355" x="810" y="365" as="geometry" />
         </mxCell>
 
-        <!-- generar_plan: heredada pero con logica nueva (respeta Calendar) -->
-        <mxCell id="t_plan" value="generar_plan&#10;(ahora respeta huecos libres de Google Calendar)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="1060" y="340" width="230" height="60" as="geometry" />
+        <mxCell id="t_estado" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; actualizar_estado" vertex="1">
+          <mxGeometry height="55" width="355" x="40" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="t_calendario" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; consultar_calendario &#9729;&#xa;(solo lectura)" vertex="1">
+          <mxGeometry height="55" width="355" x="425" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="t_agendar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; agendar_actividad &#9729;&#xa;(UNICA escritura en Calendar)" vertex="1">
+          <mxGeometry height="55" width="355" x="810" y="430" as="geometry" />
         </mxCell>
 
-        <!-- Capa 3b: tools NUEVAS en v2, destacadas -->
-        <mxCell id="t_consultarcal" value="consultar_calendario&#10;(NUEVA en v2 — solo lectura)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=12;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1060" y="430" width="230" height="60" as="geometry" />
+        <mxCell id="t_plan" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; generar_plan(fecha, inicio, fin) &#9729;&#xa;(usa huecos libres del Calendar)" vertex="1">
+          <mxGeometry height="55" width="355" x="40" y="495" as="geometry" />
         </mxCell>
-        <mxCell id="t_agendar" value="agendar_actividad&#10;(NUEVA en v2 — unica escritura: crear evento)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=12;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1320" y="430" width="250" height="60" as="geometry" />
+        <mxCell id="t_inspeccionar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; inspeccionar_carpeta" vertex="1">
+          <mxGeometry height="55" width="355" x="425" y="495" as="geometry" />
         </mxCell>
-
-        <!-- Capa 4: almacenamiento y servicios externos -->
-        <mxCell id="actividadesjson" value="actividades.json&#10;(lista de actividades, JSON plano)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="20" y="560" width="230" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="planesmd" value="planes_generados/&#10;(archivos .md)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="290" y="560" width="200" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="materiales" value="CARPETA_AUTORIZADA / materiales/&#10;PDF, DOCX, TXT, MD, PY (sandbox)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="530" y="560" width="260" height="60" as="geometry" />
+        <mxCell id="t_buscar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&#128295; buscar_en_documentos&#xa;(busqueda literal, sin RAG)" vertex="1">
+          <mxGeometry height="55" width="355" x="810" y="495" as="geometry" />
         </mxCell>
 
-        <mxCell id="googlecal" value="Google Calendar API (externa)&#10;OAuth2, scope calendar.events&#10;lee eventos + crea eventos nuevos&#10;(nunca edita/borra existentes)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="1130" y="560" width="300" height="80" as="geometry" />
+        <!-- Header Helpers (datos/tiempo) -->
+        <mxCell id="hdr_helpers" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#b35c00;" value="&#9881; FUNCIONES AUXILIARES — helpers privados, el LLM NO las conoce ni las invoca" vertex="1">
+          <mxGeometry height="24" width="900" x="40" y="575" as="geometry" />
         </mxCell>
 
-        <mxCell id="tokenjson" value="token.json / credentials.json&#10;(generados por autenticar_calendario.py)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="1130" y="670" width="300" height="60" as="geometry" />
+        <!-- Helpers row1 (datos) -->
+        <mxCell id="h_cargar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _cargar_actividades()" vertex="1">
+          <mxGeometry height="50" width="206" x="40" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="h_guardar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _guardar_actividades()" vertex="1">
+          <mxGeometry height="50" width="206" x="271" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="h_buscaract" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _buscar_actividad(id)" vertex="1">
+          <mxGeometry height="50" width="206" x="502" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="h_validarruta" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _validar_ruta()&#xa;(sandbox de carpeta)" vertex="1">
+          <mxGeometry height="50" width="206" x="733" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="h_urgencia" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _puntaje_urgencia()&#xa;(pura, sin I/O)" vertex="1">
+          <mxGeometry height="50" width="206" x="964" y="605" as="geometry" />
         </mxCell>
 
-        <!-- edges principales -->
-        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="usuario" target="loopchat">
+        <!-- Helpers row2 (datos/tiempo) -->
+        <mxCell id="h_normalizar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _normalizar()&#xa;(pura, sin I/O)" vertex="1">
+          <mxGeometry height="50" width="206" x="40" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="h_extraerarchivo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _extraer_texto_archivo()&#xa;(pypdf / python-docx)" vertex="1">
+          <mxGeometry height="50" width="206" x="271" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="h_extraertexto" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; extraer_texto()&#xa;(usada por iniciar_chat)" vertex="1">
+          <mxGeometry height="50" width="206" x="502" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="h_hhmm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _hhmm_a_minutos()&#xa;(pura, sin I/O)" vertex="1">
+          <mxGeometry height="50" width="206" x="733" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="h_minhhmm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _minutos_a_hhmm()&#xa;(pura, sin I/O)" vertex="1">
+          <mxGeometry height="50" width="206" x="964" y="665" as="geometry" />
+        </mxCell>
+
+        <!-- Sub-header helpers Calendar -->
+        <mxCell id="hdr_helpers_cal" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=3;fontColor=#b35c00;" value="&#9729; Helpers que hablan con la API externa de Google Calendar:" vertex="1">
+          <mxGeometry height="20" width="700" x="40" y="722" as="geometry" />
+        </mxCell>
+
+        <!-- Helpers row3 (Calendar) -->
+        <mxCell id="h_svc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _obtener_servicio_calendario()&#xa;OAuth2 (token.json / credentials.json)" vertex="1">
+          <mxGeometry height="55" width="260" x="40" y="748" as="geometry" />
+        </mxCell>
+        <mxCell id="h_eventosdia" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _obtener_eventos_dia(fecha)&#xa;lista eventos del dia" vertex="1">
+          <mxGeometry height="55" width="260" x="330" y="748" as="geometry" />
+        </mxCell>
+        <mxCell id="h_huecos" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _calcular_huecos_libres()&#xa;(pura, sin I/O — barrido lineal)" vertex="1">
+          <mxGeometry height="55" width="260" x="620" y="748" as="geometry" />
+        </mxCell>
+        <mxCell id="h_crearevento" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;fontSize=11;" value="&#9881; _crear_evento()&#xa;UNICA funcion que escribe en Calendar" vertex="1">
+          <mxGeometry height="55" width="260" x="910" y="748" as="geometry" />
+        </mxCell>
+
+        <!-- Header Storage -->
+        <mxCell id="hdr_storage" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#8f2d24;" value="&#128190; ALMACENAMIENTO Y SERVICIOS EXTERNOS" vertex="1">
+          <mxGeometry height="24" width="700" x="40" y="828" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actividadesjson" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="&#128190; actividades.json&#xa;(lista de actividades, JSON plano)" vertex="1">
+          <mxGeometry height="60" width="240" x="40" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="planesmd" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="&#128190; planes_generados/&#xa;(archivos .md)" vertex="1">
+          <mxGeometry height="60" width="200" x="310" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="materiales" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="&#128190; CARPETA_AUTORIZADA / materiales/&#xa;PDF, DOCX, TXT, MD, PY (sandbox)" vertex="1">
+          <mxGeometry height="60" width="260" x="540" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="oauth" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="&#128190; token.json / credentials.json&#xa;(credenciales OAuth2)" vertex="1">
+          <mxGeometry height="60" width="230" x="830" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="gcal" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" value="&#9729; Google Calendar API&#xa;(servicio externo, scope calendar.events)" vertex="1">
+          <mxGeometry height="60" width="290" x="1090" y="860" as="geometry" />
+        </mxCell>
+
+        <!-- autenticar_calendario.py -->
+        <mxCell id="authscript" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;dashed=1;" value="&#128421; autenticar_calendario.py&#xa;Script de un solo uso — corre con Python de Windows (no WSL) por el bug de forwarding de localhost en WSL2" vertex="1">
+          <mxGeometry height="60" width="600" x="40" y="940" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== LEYENDA ==================== -->
+        <mxCell id="leg_box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;fontSize=12;fontStyle=1;" value="LEYENDA" vertex="1">
+          <mxGeometry height="960" width="280" x="1250" y="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_sw1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="1268" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_tx1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" value="Entrada / interfaz&#xa;(usuario, loop de chat)" vertex="1">
+          <mxGeometry height="34" width="220" x="1300" y="74" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_sw2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="1268" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_tx2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" value="Agente ReAct / backend LLM" vertex="1">
+          <mxGeometry height="24" width="220" x="1300" y="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_sw3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="1268" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_tx3" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" value="TOOLS (@tool) — invocables&#xa;directamente por el LLM" vertex="1">
+          <mxGeometry height="34" width="220" x="1300" y="174" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_sw4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b3;strokeColor=#d79b00;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="1268" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_tx4" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" value="Funciones auxiliares (helpers) —&#xa;privadas, el LLM NO las conoce" vertex="1">
+          <mxGeometry height="34" width="220" x="1300" y="224" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_sw5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="1268" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_tx5" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" value="Almacenamiento local /&#xa;servicios externos (Calendar)" vertex="1">
+          <mxGeometry height="34" width="220" x="1300" y="274" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_sw6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;dashed=1;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="1268" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_tx6" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" value="Script standalone&#xa;(no forma parte del agente)" vertex="1">
+          <mxGeometry height="34" width="220" x="1300" y="324" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_sep" parent="1" style="line;strokeColor=#cccccc;" value="" vertex="1">
+          <mxGeometry height="1" width="240" x="1268" y="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_line1" parent="1" style="endArrow=classic;html=1;strokeColor=#333333;" edge="1">
+          <mxGeometry height="1" width="40" x="1268" y="410" relative="1" as="geometry">
+            <mxPoint x="1268" y="410" as="sourcePoint" />
+            <mxPoint x="1308" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg_txline1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" value="Linea solida = invocacion&#xa;de funcion (llamada directa)" vertex="1">
+          <mxGeometry height="34" width="220" x="1300" y="395" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_line2" parent="1" style="endArrow=classic;html=1;strokeColor=#333333;dashed=1;" edge="1">
+          <mxGeometry height="1" width="40" x="1268" y="460" relative="1" as="geometry">
+            <mxPoint x="1268" y="460" as="sourcePoint" />
+            <mxPoint x="1308" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg_txline2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" value="Linea punteada = acceso a&#xa;archivo o API externa (I/O)" vertex="1">
+          <mxGeometry height="34" width="220" x="1300" y="445" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_icon1" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=12;fontStyle=1;" value="Iconos:" vertex="1">
+          <mxGeometry height="20" width="220" x="1268" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_icontxt" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=11;" value="&#9729; = habla con Google Calendar&#xa;&#128421; = script de un solo uso" vertex="1">
+          <mxGeometry height="50" width="240" x="1268" y="522" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_note" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontStyle=2;fontColor=#666666;" value="Nota: las funciones auxiliares&#xa;marcadas &quot;pura, sin I/O&quot; no tocan&#xa;disco ni la API -- por eso no&#xa;tienen flecha hacia Almacenamiento." vertex="1">
+          <mxGeometry height="90" width="240" x="1268" y="590" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== EDGES ==================== -->
+        <mxCell id="e1" edge="1" parent="1" source="usuario" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="loopchat">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="loopchat" target="agente">
+        <mxCell id="e2" edge="1" parent="1" source="loopchat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="agente">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="modelo">
+        <mxCell id="e3" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="modelo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_texto" edge="1" parent="1" source="loopchat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="h_extraertexto" value="normaliza respuesta">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- agente -> tools heredadas -->
-        <mxCell id="e_t1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="t_consultar">
+        <!-- agente -> tools -->
+        <mxCell id="e_t1" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_consultar">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_t2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="t_agregar">
+        <mxCell id="e_t2" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_agregar">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_t3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="t_prioridad">
+        <mxCell id="e_t3" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_prioridad">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_t4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="t_estado">
+        <mxCell id="e_t4" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_estado">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_t5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="t_inspeccionar">
+        <mxCell id="e_t5" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_calendario">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_t6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="t_buscar">
+        <mxCell id="e_t6" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_agendar">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_t7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="agente" target="t_plan">
+        <mxCell id="e_t7" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_plan">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-
-        <!-- agente -> tools nuevas -->
-        <mxCell id="e_t8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="agente" target="t_consultarcal">
+        <mxCell id="e_t8" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_inspeccionar">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_t9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="agente" target="t_agendar">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <!-- tools heredadas -> almacenamiento -->
-        <mxCell id="e_s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="t_consultar" target="actividadesjson">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="t_agregar" target="actividadesjson">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="t_prioridad" target="actividadesjson">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="t_estado" target="actividadesjson">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="t_inspeccionar" target="materiales">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="t_buscar" target="materiales">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="t_plan" target="actividadesjson">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="t_plan" target="planesmd">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#d79b00;" edge="1" parent="1" source="t_plan" target="googlecal">
+        <mxCell id="e_t9" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="t_buscar">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- tools nuevas -> Google Calendar -->
-        <mxCell id="e_s10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="t_consultarcal" target="googlecal">
+        <!-- tools -> helpers -->
+        <mxCell id="e_th1" edge="1" parent="1" source="t_consultar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_cargar">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="t_agendar" target="googlecal">
+        <mxCell id="e_th2a" edge="1" parent="1" source="t_agregar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_cargar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th2b" edge="1" parent="1" source="t_agregar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_guardar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th3a" edge="1" parent="1" source="t_prioridad" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_buscaract">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th3b" edge="1" parent="1" source="t_prioridad" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_urgencia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th4a" edge="1" parent="1" source="t_estado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_cargar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th4b" edge="1" parent="1" source="t_estado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_guardar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th5a" edge="1" parent="1" source="t_calendario" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th5b" edge="1" parent="1" source="t_calendario" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_eventosdia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th6a" edge="1" parent="1" source="t_agendar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th6b" edge="1" parent="1" source="t_agendar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_crearevento">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th7a" edge="1" parent="1" source="t_plan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_cargar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th7b" edge="1" parent="1" source="t_plan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_eventosdia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th7c" edge="1" parent="1" source="t_plan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_huecos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th7d" edge="1" parent="1" source="t_plan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_urgencia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th8a" edge="1" parent="1" source="t_inspeccionar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_buscaract">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th8b" edge="1" parent="1" source="t_inspeccionar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_validarruta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th9a" edge="1" parent="1" source="t_buscar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_buscaract">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th9b" edge="1" parent="1" source="t_buscar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_validarruta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th9c" edge="1" parent="1" source="t_buscar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_normalizar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_th9d" edge="1" parent="1" source="t_buscar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8a6d00;" target="h_extraerarchivo">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- Google Calendar <-> credenciales -->
-        <mxCell id="e_s12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="googlecal" target="tokenjson">
+        <!-- helpers -> storage -->
+        <mxCell id="e_s1" edge="1" parent="1" source="h_cargar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="actividadesjson">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s2" edge="1" parent="1" source="h_guardar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="actividadesjson">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s3" edge="1" parent="1" source="h_buscaract" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="actividadesjson">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s4" edge="1" parent="1" source="h_validarruta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="materiales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s5" edge="1" parent="1" source="h_extraerarchivo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="materiales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s6" edge="1" parent="1" source="h_svc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="oauth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s7" edge="1" parent="1" source="h_svc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="gcal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s8" edge="1" parent="1" source="h_eventosdia" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="gcal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s9" edge="1" parent="1" source="h_crearevento" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="gcal">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- script de autenticacion aparte -->
-        <mxCell id="authscript" value="autenticar_calendario.py&#10;(script de un solo uso, corre con Python de Windows — no WSL)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="1470" y="670" width="230" height="70" as="geometry" />
+        <!-- escrituras/lecturas directas -->
+        <mxCell id="e_d1" edge="1" parent="1" source="t_plan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="planesmd" value="escribe .md">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e_auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="authscript" target="tokenjson">
+        <mxCell id="e_d2" edge="1" parent="1" source="t_inspeccionar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="materiales" value="lista archivos">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
+        <!-- script standalone -->
+        <mxCell id="e_auth1" edge="1" parent="1" source="authscript" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#9673a6;" target="oauth" value="genera token.json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_auth2" edge="1" parent="1" source="authscript" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#9673a6;" target="gcal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
