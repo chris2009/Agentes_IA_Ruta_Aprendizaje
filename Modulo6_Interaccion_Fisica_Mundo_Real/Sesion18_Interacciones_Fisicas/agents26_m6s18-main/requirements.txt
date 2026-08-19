@@ -1,0 +1,11 @@
+# Versiones verificadas y probadas end-to-end el 2026-08-13.
+# openai se fija por debajo de 3.0.0 porque langchain-openai 1.4.3
+# todavía no soporta el major openai==3.0.0 (breaking changes).
+langchain>=1.3.15
+langchain-openai>=1.4.3
+langchain-core>=1.5.4
+openai>=2.45.0,<3.0.0
+langchain-community>=1.0.0
+fastrtc>=0.1.0
+fastrtc-whisper-cpp>=0.1.0
+kokoro>=0.1.0

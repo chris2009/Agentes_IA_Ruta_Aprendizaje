@@ -1,0 +1,9 @@
+https://www.anthropic.com/news/model-context-protocol
+https://github.com/modelcontextprotocol
+https://docs.astral.sh/uv/getting-started/features/#the-pip-interface
+https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture
+
+El profesor recomienda usar MCP 2.0
+
+https://github.com/microsoft/mcp-gateway
+https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification

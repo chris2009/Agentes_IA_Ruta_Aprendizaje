@@ -1,0 +1,8 @@
+python-dotenv
+ollama
+openai
+ipython
+pillow
+requests
+langchain
+langchain_openai

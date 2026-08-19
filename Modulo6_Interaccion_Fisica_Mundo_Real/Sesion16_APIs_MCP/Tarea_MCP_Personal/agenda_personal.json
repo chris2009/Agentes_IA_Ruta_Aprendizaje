@@ -1,0 +1,32 @@
+{
+  "tareas": [
+    {
+      "id": 1,
+      "descripcion": "Entregar tarea de MCP",
+      "fecha_limite": "2026-08-15",
+      "completada": false,
+      "creada": "2026-08-15 01:11"
+    },
+    {
+      "id": 2,
+      "descripcion": "Repasar Sesion 16 antes del lab",
+      "fecha_limite": "",
+      "completada": true,
+      "creada": "2026-08-15 01:11"
+    },
+    {
+      "id": 3,
+      "descripcion": "Entregar tarea de MCP",
+      "fecha_limite": "2026-08-15",
+      "completada": false,
+      "creada": "2026-08-15 01:37"
+    }
+  ],
+  "notas": [
+    {
+      "texto": "MCP agrega discovery + approval sobre function calling",
+      "creada": "2026-08-15 01:11"
+    }
+  ],
+  "next_id": 4
+}

@@ -45,6 +45,7 @@ Modulo4_Agentes_Cognitivos/Sesion9_Agentes_Memoria_Contextual/SES9_M4_AgenticMem
 Modulo4_Agentes_Cognitivos/Sesion10_Agentes_Reflexivos/SES10_M4_ReflexAgents.pdf
 Modulo4_Agentes_Cognitivos/Sesion11_Agentes_Colaborativos/SES11_M4_CollaborativeAgents.pdf
 Modulo5_Herramientas_para_Orquestacion/Sesion12_LangChain_Agents/SES12_M5_Langchain_Agents_Tools.pdf
+Modulo7_Aprendizaje_y_Mejora/10_feedback_and_correction.pdf
 
 # --- Documentos personales / información identificable ---
 Carta de Compromiso UTEC.docx
@@ -61,6 +62,9 @@ clase5-*.zip
 clase6-*.zip
 clase7-*.zip
 agents26_m5s14-main.zip
+agents26_m6s16-main.zip
+agents26_m6s17-main.zip
+agents26_m6s18-main.zip
 
 # --- Proyecto Final: se sube aparte cuando esté listo ---
 Proyecto_Final/
@@ -69,6 +73,7 @@ Proyecto_Final/
 .obsidian/
 .vscode/
 .idea/
+.claude/
 desktop.ini
 .DS_Store
 Thumbs.db

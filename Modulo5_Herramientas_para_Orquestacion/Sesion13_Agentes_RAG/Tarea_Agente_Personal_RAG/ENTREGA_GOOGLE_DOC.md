@@ -687,3 +687,12 @@ if __name__ == "__main__":
         )
     iniciar_chat()
 ```
+
+## Declaración de transparencia de IA
+
+Este documento y el código que describe fueron elaborados con asistencia de un asistente de IA (Claude Code, Anthropic), bajo dirección explícita del estudiante en cada decisión:
+
+- **Definición del alcance:** el caso personal (reemplazar la búsqueda literal de la Sesión 12 por búsqueda semántica real) y la arquitectura elegida — Chroma persistente en disco, embeddings locales vía Ollama en vez de una API de pago, Tavily como respaldo web cuando los materiales no alcanzan — fueron decisiones del estudiante, no sugerencias del asistente.
+- **Generación de código:** el asistente redactó `rag.py` (indexación y búsqueda vectorial), la integración de `buscar_en_documentos` en el agente ReAct heredado de la Sesión 12, el ajuste del *system prompt* y esta documentación, a partir de esos requisitos.
+- **Verificación y corrección por el estudiante:** el código no se aceptó sin probarlo. Durante las pruebas, el estudiante detectó una falla real que el asistente tuvo que corregir — en la primera corrida del agente completo, el modelo respondió con un mensaje tipo "dame un momento mientras consulto tus tareas y materiales" como respuesta final estructurada, sin haber llamado ninguna herramienta (`fuentes` y `tools_usadas` vacíos): la salida estructurada por sí sola no bastaba para obligar al modelo a usar las tools antes de responder. Se corrigió agregando una regla explícita al `PROMPT_SISTEMA` que prohíbe ese tipo de respuesta de "espera" como respuesta final.
+- **Pruebas reales:** se probó el RAG de forma aislada (`rag.buscar(...)`, sin el LLM de por medio) con una consulta parafraseada que no usaba las palabras exactas del documento, confirmando que la recuperación es semántica y no coincidencia de texto, y también el filtro por carpeta de tarea (`ruta_contexto`) sobre una carpeta vacía y sobre una con contenido. El agente completo se ejecutó además con un backend real (Claude Sonnet vía API de Anthropic, y también con Gemma 4 E4B vía LM Studio local) contra tareas y materiales de ejemplo, no solo revisado como texto.

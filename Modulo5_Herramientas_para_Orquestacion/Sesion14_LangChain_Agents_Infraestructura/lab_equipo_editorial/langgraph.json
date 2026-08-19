@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "editor_jefe": "./editor_jefe_agent.py:editor_jefe"
+  },
+  "env": ".env"
+}
