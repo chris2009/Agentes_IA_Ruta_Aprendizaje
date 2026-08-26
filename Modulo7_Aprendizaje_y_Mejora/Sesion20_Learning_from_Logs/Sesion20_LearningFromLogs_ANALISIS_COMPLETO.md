@@ -101,14 +101,14 @@ La tabla comparativa del material (reconstruida aquí en formato legible — el 
 Con miles de trazas ya disponibles, el material propone un ciclo CRUD (*Create, Read, Update, Delete*) guiado por una señal $S_t$ — el *score* de una traza (éxito, crítica recibida, costo). Reconstruyendo el diagrama circular de la diapositiva 18 (basado en texto disperso alrededor de un gráfico):
 
 ```
-Observar → Evaluar S_t → Create (si vale la pena guardarse)
+Observar → Evaluar señal → Create (si vale la pena guardarse)
                               ↓
         Actuar ← Read (recuperar lo relevante) ← Organizar
                               ↑
                     Update / Delete (si la lección cambió o ya no sirve)
 ```
 
-$S_t$ es lo que convierte una caché pasiva (guardar todo, sin criterio) en un motor de aprendizaje: decide si una traza vale la pena destilarse, y más adelante si esa lección sigue siendo válida. La fuente académica de este marco es Ren et al., *"Self-Improvements in Modern Agentic Systems: A Survey"* (arXiv:2607.13104, julio 2026), §6.2.3 "Memory Processing" — confirmado en la [página del paper en arXiv](https://arxiv.org/abs/2607.13104): la survey formaliza un agente moderno como un modelo base más un *scaffold* de *prompts*, memoria, *tools* y control, y el auto-mejoramiento como un operador de actualización sobre ese *scaffold*.
+La señal de evaluación es $S_t$, y es lo que convierte una caché pasiva (guardar todo, sin criterio) en un motor de aprendizaje: decide si una traza vale la pena destilarse, y más adelante si esa lección sigue siendo válida. La fuente académica de este marco es Ren et al., *"Self-Improvements in Modern Agentic Systems: A Survey"* (arXiv:2607.13104, julio 2026), §6.2.3 "Memory Processing" — confirmado en la [página del paper en arXiv](https://arxiv.org/abs/2607.13104): la survey formaliza un agente moderno como un modelo base más un *scaffold* de *prompts*, memoria, *tools* y control, y el auto-mejoramiento como un operador de actualización sobre ese *scaffold*.
 
 ### 4.2 Los cuatro dilemas del CRUD
 
@@ -130,10 +130,10 @@ $S_t$ es lo que convierte una caché pasiva (guardar todo, sin criterio) en un m
 ### 5.1 De corregir la salida a corregir la instrucción
 
 ```
-system prompt (pt) → ejecutar → evaluar (señal S_t) → proponer edición → pt+1
+system prompt actual → ejecutar → evaluar (señal) → proponer edición → system prompt siguiente
 ```
 
-La distinción con la Sesión 19 es explícita: *antes* se corregía la salida (la respuesta puntual mejoraba, pero la instrucción seguía igual en la siguiente llamada); *ahora* se corrige la instrucción misma, así que la mejora se aplica a **todas** las ejecuciones futuras, no solo a la que falló. Aquí "*prompt*" se refiere específicamente al *system prompt* estable que se reutiliza en cada llamada, no a un mensaje puntual.
+En notación formal, esto es $p_t \to \text{ejecutar} \to \text{evaluar } S_t \to \text{proponer edición} \to p_{t+1}$. La distinción con la Sesión 19 es explícita: *antes* se corregía la salida (la respuesta puntual mejoraba, pero la instrucción seguía igual en la siguiente llamada); *ahora* se corrige la instrucción misma, así que la mejora se aplica a **todas** las ejecuciones futuras, no solo a la que falló. Aquí "*prompt*" se refiere específicamente al *system prompt* estable que se reutiliza en cada llamada, no a un mensaje puntual.
 
 ### 5.2 Cuatro paradigmas, según la riqueza de la señal
 

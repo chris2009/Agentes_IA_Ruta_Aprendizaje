@@ -16,7 +16,6 @@ La diapositiva de apertura organiza el resto de la sesión alrededor de un **sis
 
 ```
                          Actores
-                    A = {a_i}_{i=1}^n
                           │
    Coordinación ──────────┼────────── Tipos
    (Protocolos)           │        (Cooperación / Competencia)
@@ -27,7 +26,7 @@ La diapositiva de apertura organiza el resto de la sesión alrededor de un **sis
 (Basadas en reglas/roles) │      (Centralizada / Distribuida)
 ```
 
-Las cinco dimensiones — **Actores**, **Tipos** de colaboración, **Estrategias** de colaboración, **Estructuras** de comunicación y **Arquitecturas de Coordinación** — son exactamente las cinco secciones en que se organiza el resto del material (§2 a §5 de este documento), y coinciden con la estructura del *survey* ancla identificado en el Hallazgo clave.
+El conjunto de actores se define formalmente como $A = \{a_i\}_{i=1}^n$. Las cinco dimensiones — **Actores**, **Tipos** de colaboración, **Estrategias** de colaboración, **Estructuras** de comunicación y **Arquitecturas de Coordinación** — son exactamente las cinco secciones en que se organiza el resto del material (§2 a §5 de este documento), y coinciden con la estructura del *survey* ancla identificado en el Hallazgo clave.
 
 ### 1.2 Un eje adicional: en qué etapa del *pipeline* se colabora
 
@@ -50,11 +49,11 @@ La idea central es que la colaboración no es un único punto de integración fi
 Los agentes alinean sus objetivos individuales $o_i$ con una meta colectiva compartida $O_{collab}$, trabajando juntos hacia un propósito común.
 
 ```
-        Objetivo Compartido (O_collab)
+          Objetivo Compartido
                     │
       ┌─────────────┼─────────────┐
   Agente 1       Agente 2       Agente 3
-    (o_1)          (o_2)          (o_3)
+(objetivo 1)   (objetivo 2)   (objetivo 3)
 ```
 
 | Ventajas | Desventajas |
@@ -69,8 +68,7 @@ Los agentes priorizan sus propios objetivos $o_i$, que pueden entrar en conflict
 
 ```
 Agente 1 (Fiscal)  ──── compiten ────  Agente 2 (Acusado)
-  objetivo: o_1                          objetivo: o_2
-  (condena)                              (absolución)
+  objetivo: condena                     objetivo: absolución
                     │
                 Resultado
                (Decisión)
