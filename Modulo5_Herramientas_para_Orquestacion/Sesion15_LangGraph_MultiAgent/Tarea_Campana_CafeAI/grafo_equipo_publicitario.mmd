@@ -1,0 +1,26 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	enrutador(enrutador)
+	creativo(creativo)
+	redactor(redactor)
+	disenador(disenador)
+	consolidador(consolidador)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> enrutador;
+	creativo -. &nbsp;cerrar&nbsp; .-> consolidador;
+	creativo -. &nbsp;seguir&nbsp; .-> redactor;
+	disenador --> consolidador;
+	enrutador -. &nbsp;campana_completa&nbsp; .-> creativo;
+	enrutador -.-> disenador;
+	enrutador -.-> redactor;
+	redactor -. &nbsp;cerrar&nbsp; .-> consolidador;
+	redactor -. &nbsp;seguir&nbsp; .-> disenador;
+	consolidador --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc

@@ -1,0 +1,26 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD
+    U["Cliente<br/>pedido en lenguaje natural"] --> R
+    R{"ENRUTADOR<br/>with_structured_output(RutaCampana)<br/>temperature 0.1"}
+    R -->|campana_completa / creativo| C
+    R -->|redactor| W
+    R -->|disenador| D
+    subgraph EQ["Equipo creativo - temperature 0.8"]
+        direction LR
+        C["CREATIVO<br/>insight, gran idea,<br/>eslogan, hashtag, ejes"] -->|pipeline| W["REDACTOR<br/>posts de Instagram,<br/>LinkedIn y TikTok"] -->|pipeline| D["DISEÑADOR<br/>paleta, tipografía, formatos,<br/>prompt de imagen"]
+    end
+    C -.->|ruta puntual| S
+    W -.->|ruta puntual| S
+    D --> S["CONSOLIDADOR<br/>sin LLM: arma el .md final"]
+    S --> O["Entregable<br/>campanas_generadas/*.md"]
+    B["Brief de marca Cafe.AI<br/>contexto compartido por los 4 roles"] -.-> R
+    B -.-> EQ
+    E["EstadoCampana (TypedDict)<br/>pedido - ruta - concepto -<br/>copys - diseno - entregable"] -.- EQ
+    classDef rol fill:#f2f0ff,stroke:#6b5bd2,line-height:1.3
+    classDef infra fill:#fff6e5,stroke:#c98a10,line-height:1.3
+    class C,W,D rol
+    class B,E,S infra
