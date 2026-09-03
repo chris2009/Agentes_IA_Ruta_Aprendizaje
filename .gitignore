@@ -18,6 +18,10 @@ OllamaSetup.exe
 *.exe
 *.mp4
 
+# Grabaciones de clase (12 GB de video + chats de Zoom): material local,
+# no se versiona ni se sube.
+Grabaciones/
+
 # --- Material con copyright de terceros (no redistribuir) ---
 # Diapositivas y PDFs del docente / la universidad (UTEC) -- no son
 # material propio, no se redistribuyen.
