@@ -73,6 +73,35 @@ La observabilidad clásica se apoya en tres señales: **logs** (qué pasó), **m
 
 **LangFuse** (diapositivas 12-13) — modelo *open-core*: el núcleo es MIT y gratis para *self-host* sin límite de uso, salvo la carpeta `ee/` (SCIM, *audit log*, retención extendida), que requiere licencia comercial. Dato de contexto 2026 que aparece explícito en la diapositiva: **Langfuse fue adquirida por ClickHouse en enero de 2026**, manteniendo la licencia MIT del núcleo.
 
+**Ejemplo práctico — cómo se genera ese feedback en LangSmith (no lo cubre el material, agregado en esta investigación):** "feedback" en LangSmith es un valor evaluativo que se adjunta a un *run* (traza) ya ejecutado, no algo que el agente genera solo. Tiene tres piezas:
+
+1. **Feedback config** — se define una vez, a nivel de organización, qué tipo de métrica vas a usar (una `key`, más si es un score continuo, categórico o texto libre):
+   ```python
+   client.create_feedback_config(
+       "utilidad",
+       feedback_config={"type": "continuous", "min": 0, "max": 1},
+       is_lower_score_better=False,
+   )
+   ```
+2. **Feedback programático** — se adjunta a un `run_id` puntual, típicamente desde tu propia aplicación (por ejemplo cuando el usuario final le da 👍/👎 a una respuesta del agente):
+   ```python
+   client.create_feedback(
+       key="utilidad",
+       score=1,          # o 0, o un valor continuo entre min y max
+       run_id=run_id,     # el id del run/traza a calificar
+       comment="El usuario confirmo que el plan generado le sirvio.",
+   )
+   ```
+3. **Cola de anotación** — para revisión humana estructurada, se puede encolar un run por SDK y luego calificarlo desde la UI:
+   ```python
+   await client.annotation_queues.items.create(
+       str(queue.id),
+       items=[{"item_type": "RUN", "run_id": run_id, "project_id": project_id}],
+   )
+   ```
+
+Esto es exactamente el $S_t$ del que habla §4.1 más abajo — LangSmith es una forma concreta de producir y capturar esa señal, ya sea automática (código 2) o humana (código 3), antes de que un método tipo ACE decida qué hacer con ella. (Fuentes verificadas: [SDK de feedback y colas de anotación](https://docs.langchain.com/langsmith/annotation-queues-sdk); [`create_feedback`, referencia del SDK](https://reference.langchain.com/python/langsmith/client/Client/create_feedback).)
+
 **AgentTrace** (diapositiva 14) — la "vía académica": propone subir un nivel de abstracción respecto a LangSmith/LangFuse, que en su forma más simple solo trazan la lista plana de llamadas al modelo. AgentTrace en cambio construye un **grafo de ejecución completo con relaciones padre-hijo** (un `plan` que se ramifica en `tool A`, `tool B`, un reintento, etc.), no solo una secuencia.
 
 ### 3.3 Recap: cuál elegir (diapositiva 15)
@@ -330,6 +359,7 @@ La memoria semántica con FAISS sí demuestra su punto central: en la simulació
 - Yang, C., Wang, X., Lu, Y., et al. (2023). *"Large Language Models as Optimizers (OPRO)."* [arXiv:2309.03409](https://arxiv.org/abs/2309.03409).
 - Yuksekgonul, M., et al. (2024). *"TextGrad: Automatic Differentiation via Text."* [arXiv:2406.07496](https://arxiv.org/abs/2406.07496).
 - [Documentación de LangSmith](https://docs.langchain.com/langsmith/home).
+- [SDK de feedback y colas de anotación de LangSmith](https://docs.langchain.com/langsmith/annotation-queues-sdk) y [referencia de `create_feedback`](https://reference.langchain.com/python/langsmith/client/Client/create_feedback) — base del ejemplo práctico de §3.2, no cubierto por el material original.
 - [Documentación de Langfuse](https://langfuse.com/docs).
 
 **Investigación complementaria (verificada externamente para este documento):**
