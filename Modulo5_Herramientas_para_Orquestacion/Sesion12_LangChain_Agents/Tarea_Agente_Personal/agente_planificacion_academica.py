@@ -110,7 +110,7 @@ def agregar_tarea(
 
 @tool
 def calcular_prioridad(tarea_id: int) -> str:
-    """Calcula el puntaje de urgencia de una tarea. Usala antes de decidir cual atender primero."""
+    """Calcula el puntaje de urgencia de una tarea, a partir de su prioridad y dias restantes."""
     tarea = _buscar_tarea(tarea_id)
     if tarea is None:
         return f"No existe una tarea con id {tarea_id}."
@@ -124,9 +124,9 @@ def calcular_prioridad(tarea_id: int) -> str:
 @tool
 def generar_plan(minutos_disponibles: int) -> str:
     """
-    Arma un plan con las tareas pendientes, de mayor a menor urgencia,
-    con 10 minutos de descanso entre cada una, y lo guarda como .md en
-    planes_generados/. Usala despues de calcular_prioridad.
+    Arma un plan con las tareas pendientes, de mayor a menor urgencia
+    (calculada internamente), con 10 minutos de descanso entre cada una,
+    y lo guarda como .md en planes_generados/.
     """
     pendientes = sorted(
         (t for t in _cargar_tareas() if t["estado"] != "completada"),
@@ -308,28 +308,21 @@ def extraer_texto(contenido) -> str:
 
 
 PROMPT_SISTEMA = """
-Eres un agente personal de planificacion academica. Ayudas a priorizar
-tareas pendientes y a consultar los materiales asociados a cada una,
-usando siempre tus herramientas — nunca inventes fechas, prioridades ni
-contenido de documentos que no hayas consultado.
+Eres un agente personal de planificacion academica. Tienes herramientas
+para consultar y registrar tareas, calcular su urgencia, generar planes
+de tiempo, inspeccionar y buscar dentro de los materiales de cada tarea,
+y actualizar su estado.
 
-Flujo recomendado:
-1. Usa consultar_tareas para ver que hay pendiente.
-2. Usa calcular_prioridad sobre las tareas relevantes para decidir cual
-   atender primero (nunca decidas la urgencia "a ojo").
-3. Si el usuario da un tiempo disponible, usa generar_plan para
-   distribuir las tareas dentro de ese tiempo.
-4. Si el usuario quiere empezar una tarea, usa inspeccionar_carpeta para
-   ver que materiales existen, y buscar_en_documentos para consultar
-   instrucciones, requisitos o conceptos.
-5. Usa actualizar_estado cuando el usuario indique que empezo o termino
-   una tarea, y agregar_tarea cuando mencione una actividad nueva que no
-   este registrada.
-6. Si el usuario pide "guardar", "exportar" o "escribir en un archivo"
-   un plan detallado que ya redactaste en la conversacion (distinto de
-   la tabla de generar_plan), usa guardar_plan_detallado pasandole ese
-   mismo contenido. Nunca digas que un plan quedo guardado sin haber
-   llamado a una herramienta que efectivamente lo guarde.
+Para cada pedido del usuario, razona cuales de estas herramientas
+necesitas y en que orden — no asumas un flujo fijo ni las llames todas
+por rutina. Un pedido puede resolverse con una sola herramienta; otro
+puede necesitar varias encadenadas. Decide segun lo que el usuario
+realmente esta pidiendo y lo que ya observaste en pasos anteriores.
+
+Basate siempre en lo que las herramientas te devuelvan: nunca inventes
+fechas, prioridades ni contenido de documentos que no hayas consultado,
+y nunca digas que algo quedo guardado sin haber llamado a la herramienta
+que efectivamente lo guarda.
 
 Reglas:
 - Solo puedes inspeccionar o buscar dentro de carpetas dentro de la
